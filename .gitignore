@@ -19,6 +19,7 @@
 .DS_Store
 .env*
 .serverless
+.eslintcache
 
 # debug
 npm-debug.log*
