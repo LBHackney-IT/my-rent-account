@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "jest --passWithNoTests",
     "lint": "eslint . --ext .js,.jsx",
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
   },
@@ -18,11 +19,14 @@
     "serverless-http": "^2.4.1"
   },
   "devDependencies": {
+    "@testing-library/react": "^10.4.3",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.17.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.2",
     "husky": ">=4",
+    "jest": "^26.1.0",
     "lint-staged": ">=10",
     "prettier": "^2.0.5",
     "serverless": "^1.74.1"
