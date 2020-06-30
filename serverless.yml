@@ -1,0 +1,33 @@
+service: my-rent-account
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-2
+  stage: ${opt:stage}
+
+package:
+  individually: true
+  exclude:
+    - ./**
+
+functions:
+  my-rent-account:
+    name: ${self:service}-${self:provider.stage}
+    handler: lambda.handler
+    package:
+      include:
+        - lambda.js
+        - next.config.js
+        - pages/**
+        - public/**
+        - build/_next/**
+        - node_modules/**
+    events:
+      - http:
+          path: api/{proxy+}
+          method: ANY
+      - http: ANY /
+      - http: ANY /{proxy+}
+    environment:
+      ENV: ${self:provider.stage}

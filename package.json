@@ -1,0 +1,21 @@
+{
+  "name": "my-rent-account",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "9.4.4",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "restana": "^4.3.4",
+    "serve-static": "^1.14.1",
+    "serverless-http": "^2.4.1"
+  },
+  "devDependencies": {
+    "serverless": "^1.74.1"
+  }
+}
