@@ -11,7 +11,9 @@
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
   },
   "dependencies": {
+    "lbh-frontend-react": "^0.0.15",
     "next": "9.4.4",
+    "normalize.css": "^8.0.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "restana": "^4.3.4",
@@ -30,6 +32,9 @@
     "lint-staged": ">=10",
     "prettier": "^2.0.5",
     "serverless": "^1.74.1"
+  },
+  "optionalDependencies": {
+    "typescript": "^3.9.5"
   },
   "husky": {
     "hooks": {
