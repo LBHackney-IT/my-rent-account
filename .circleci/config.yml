@@ -31,13 +31,13 @@ jobs:
           name: Build the application
           command: yarn build
 
-      # - run:
-      #     name: Run unit tests
-      #     command: yarn run unit-test
+      - run:
+          name: Run unit tests
+          command: yarn test
 
-      # - run:
-      #     name: Run linting
-      #     command: yarn lint
+      - run:
+          name: Run linting
+          command: yarn lint
 
       - persist_to_workspace:
           root: *workspace_root
