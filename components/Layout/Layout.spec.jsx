@@ -3,18 +3,13 @@ import { render } from "@testing-library/react";
 
 import Layout from "./Layout";
 
-jest.mock("lbh-frontend-react", () => ({
-  Container: "lbh-Container",
-  Header: "lbh-Header",
-  Main: "lbh-Main",
-  Paragraph: "lbh-Paragraph",
-  Tag: "lbh-Tag",
-}));
+jest.mock("./Footer/Footer", () => "footer");
+jest.mock("./Header/Header", () => "header");
 
 describe("Layout component", () => {
   it("should render properly", () => {
     const { asFragment } = render(
-      <Layout>
+      <Layout serviceName="my rent account">
         <div>foo</div>
       </Layout>
     );

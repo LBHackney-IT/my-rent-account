@@ -1,7 +1,8 @@
 import React from "react";
-import "normalize.css";
-
 import App from "next/app";
+
+import "./stylesheets/all.scss";
+
 import Layout from "components/Layout/Layout";
 
 export default class MyApp extends App {
