@@ -1,39 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Head from "next/head";
 
-import { Container, Header, Main, Paragraph, Tag } from "lbh-frontend-react";
+import Header from "./Header/Header";
+import Footer from "./Footer/Footer";
+import SkipLink from "./SkipLink/SkipLink";
+import PhaseBanner from "./PhaseBanner/PhaseBanner";
 
 const Layout = ({ children }) => (
-  <div>
-    <Head>
-      <title>My Rent Account</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    <Header serviceName="My Rent Account"></Header>
-    <Main>
-      <Container>
-        <div className="phase-banner">
-          <Paragraph>
-            <Tag>BETA</Tag> This is a new service – your feedback will help us
-            to improve it.
-          </Paragraph>
-          <hr />
-        </div>
+  <>
+    <SkipLink />
+    <Header serviceName="My Rent Account" />
+    <div className="govuk-width-container app-width-container">
+      <PhaseBanner phase="beta" />
+      <main
+        className="govuk-main-wrapper app-main-class"
+        id="content"
+        role="main"
+      >
         {children}
-      </Container>
-    </Main>
-    <style jsx>
-      {`
-        :global(#main-content) {
-          padding-top: 0;
-        }
-        .phase-banner {
-          margin-top: 1.5em;
-        }
-      `}
-    </style>
-  </div>
+      </main>
+    </div>
+    <Footer />
+  </>
 );
 
 Layout.propTypes = {

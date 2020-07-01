@@ -11,7 +11,7 @@
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
   },
   "dependencies": {
-    "lbh-frontend-react": "^0.0.15",
+    "govuk-frontend": "^3.7.0",
     "next": "9.4.4",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
@@ -32,6 +32,7 @@
     "jest": "^26.1.0",
     "lint-staged": ">=10",
     "prettier": "^2.0.5",
+    "sass": "^1.26.9",
     "serverless": "^1.74.1"
   },
   "optionalDependencies": {

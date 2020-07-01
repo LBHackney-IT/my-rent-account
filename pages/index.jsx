@@ -1,11 +1,9 @@
 import React from "react";
 
-import { Heading, HeadingLevels } from "lbh-frontend-react";
-
 const Home = () => (
   <div>
     <div className="heading">
-      <Heading level={HeadingLevels.H1}>My Rent Account</Heading>
+      <h1>My Rent Account</h1>
     </div>
     Foobar
   </div>
