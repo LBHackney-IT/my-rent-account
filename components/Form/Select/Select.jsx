@@ -1,7 +1,8 @@
-import cx from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import cx from "classnames";
+import PropTypes from "prop-types";
 
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
 const Select = ({
   label,
@@ -14,11 +15,11 @@ const Select = ({
   children,
   isUnselectable = true,
   ignoreValue,
-  value
+  value,
 }) => (
   <div
-    className={cx('govuk-form-group', {
-      'govuk-form-group--error': error
+    className={cx("govuk-form-group", {
+      "govuk-form-group--error": error,
     })}
   >
     <label className="govuk-label govuk-label--m" htmlFor={name}>
@@ -37,13 +38,13 @@ const Select = ({
       name={name}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
-      onChange={e => onChange && onChange(e.target.value)}
+      onChange={(e) => onChange && onChange(e.target.value)}
       value={ignoreValue ? undefined : value}
     >
       {isUnselectable && <option key="empty" value=""></option>}
-      {options.map(option => {
+      {options.map((option) => {
         const { value, text } =
-          typeof option === 'string' ? { value: option, text: option } : option;
+          typeof option === "string" ? { value: option, text: option } : option;
         return (
           <option key={value} value={value}>
             {text}
@@ -57,19 +58,24 @@ const Select = ({
 Select.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  hint: PropTypes.string,
+  onChange: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
         value: PropTypes.string.isRequired,
-        text: PropTypes.string.isRequired
-      })
+        text: PropTypes.string.isRequired,
+      }),
     ])
   ),
   selected: PropTypes.string,
   register: PropTypes.func,
   children: PropTypes.node,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired })
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  isUnselectable: PropTypes.bool,
+  ignoreValue: PropTypes.bool,
+  value: PropTypes.string,
 };
 
 export default Select;

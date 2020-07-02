@@ -1,10 +1,11 @@
-import { fireEvent, render } from '@testing-library/react';
-import TextInput from './TextInput';
+import React from "react";
+import { fireEvent, render } from "@testing-library/react";
+import TextInput from "./TextInput";
 
-describe('TextInput', () => {
-  it('renders a text input', () => {
-    const inputName = 'my-text-input';
-    const inputLabel = 'My Input';
+describe("TextInput", () => {
+  it("renders a text input", () => {
+    const inputName = "my-text-input";
+    const inputLabel = "My Input";
     const { getByLabelText } = render(
       <TextInput name={inputName} label={inputLabel} />
     );
@@ -17,17 +18,17 @@ describe('TextInput', () => {
     expect(input.name).toEqual(inputName);
   });
 
-  it('performs an action onChange', () => {
-    let newValue = '';
-    const myAction = jest.fn(e => (newValue = e.target.value));
+  it("performs an action onChange", () => {
+    let newValue = "";
+    const myAction = jest.fn((e) => (newValue = e.target.value));
     const { getByLabelText } = render(
-      <TextInput name={'my-input'} label={'My Input'} onChange={myAction} />
+      <TextInput name={"my-input"} label={"My Input"} onChange={myAction} />
     );
 
     fireEvent.change(getByLabelText(/\s*My Input\s*/), {
-      target: { value: 'hello' }
+      target: { value: "hello" },
     });
 
-    expect(newValue).toEqual('hello');
+    expect(newValue).toEqual("hello");
   });
 });

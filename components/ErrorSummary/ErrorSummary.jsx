@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const ErrorSummary = ({ title, body, links }) => (
   <div
@@ -28,7 +29,8 @@ const ErrorSummary = ({ title, body, links }) => (
 
 ErrorSummary.propTypes = {
   title: PropTypes.string,
-  body: PropTypes.node
+  body: PropTypes.node,
+  links: PropTypes.array,
 };
 
 export default ErrorSummary;

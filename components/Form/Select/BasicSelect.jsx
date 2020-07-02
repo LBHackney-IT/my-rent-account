@@ -1,4 +1,5 @@
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 const BasicSelect = ({ value, onChange = console.log, label, options }) => (
   <div className="govuk-!-margin-bottom-3">
@@ -8,7 +9,7 @@ const BasicSelect = ({ value, onChange = console.log, label, options }) => (
     <select
       id={{ label }}
       value={value}
-      onChange={e => {
+      onChange={(e) => {
         onChange(e.target.value || undefined);
       }}
     >
@@ -27,7 +28,7 @@ BasicSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   options: PropTypes.array.isRequired,
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default BasicSelect;

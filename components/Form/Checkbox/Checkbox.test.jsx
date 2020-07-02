@@ -1,10 +1,11 @@
-import { render } from '@testing-library/react';
-import Checkbox from './Checkbox';
+import React from "react";
+import { render } from "@testing-library/react";
+import Checkbox from "./Checkbox";
 
-describe('Checkbox', () => {
-  it('renders a checkbox', () => {
-    const checkboxName = 'my-checkbox';
-    const checkboxLabel = 'My Checkbox';
+describe("Checkbox", () => {
+  it("renders a checkbox", () => {
+    const checkboxName = "my-checkbox";
+    const checkboxLabel = "My Checkbox";
     const { getByLabelText } = render(
       <Checkbox
         name={checkboxName}

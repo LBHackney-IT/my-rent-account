@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
-import cx from 'classnames';
-import { Controller } from 'react-hook-form';
+import React, { useState, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
+import { Controller } from "react-hook-form";
 
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
-const getInitialDate = (value = '') => {
-  const [year = '', month = '', day = ''] = value.split('-');
+const getInitialDate = (value = "") => {
+  const [year = "", month = "", day = ""] = value.split("-");
   return { day, month, year };
 };
 
@@ -13,15 +14,15 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
   const [date, setDate] = useState(getInitialDate(value));
   useEffect(() => {
     const { day, month, year } = date;
-    day !== '' &&
-      month !== '' &&
-      year !== '' &&
+    day !== "" &&
+      month !== "" &&
+      year !== "" &&
       onChange(`${year}-${month}-${day}`);
   }, [date]);
   return (
     <div
-      className={cx('govuk-form-group', {
-        'govuk-form-group--error': error
+      className={cx("govuk-form-group", {
+        "govuk-form-group--error": error,
       })}
     >
       <fieldset
@@ -44,9 +45,9 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
               </label>
               <input
                 className={cx(
-                  'govuk-input govuk-date-input__input govuk-input--width-2',
+                  "govuk-input govuk-date-input__input govuk-input--width-2",
                   {
-                    'govuk-input--error': error
+                    "govuk-input--error": error,
                   }
                 )}
                 id={`${name}-day`}
@@ -72,9 +73,9 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
               </label>
               <input
                 className={cx(
-                  'govuk-input govuk-date-input__input govuk-input--width-2',
+                  "govuk-input govuk-date-input__input govuk-input--width-2",
                   {
-                    'govuk-input--error': error
+                    "govuk-input--error": error,
                   }
                 )}
                 id={`${name}-month`}
@@ -99,9 +100,9 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
               </label>
               <input
                 className={cx(
-                  'govuk-input govuk-date-input__input govuk-input--width-4',
+                  "govuk-input govuk-date-input__input govuk-input--width-4",
                   {
-                    'govuk-input--error': error
+                    "govuk-input--error": error,
                   }
                 )}
                 id={`${name}-year`}
@@ -122,6 +123,14 @@ const DateInput = ({ label, inputRef, error, value, onChange }) => {
   );
 };
 
+DateInput.propTypes = {
+  label: PropTypes.string,
+  inputRef: PropTypes.func,
+  error: PropTypes.shape({ message: PropTypes.string }),
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};
+
 const ControlledDateInput = ({ control, name, rules, ...otherProps }) => {
   const inputRef = useRef();
   return (
@@ -134,6 +143,12 @@ const ControlledDateInput = ({ control, name, rules, ...otherProps }) => {
       control={control}
     ></Controller>
   );
+};
+
+ControlledDateInput.propTypes = {
+  control: PropTypes.func,
+  name: PropTypes.string,
+  rules: PropTypes.shape(),
 };
 
 export default ControlledDateInput;

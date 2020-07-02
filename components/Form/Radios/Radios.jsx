@@ -1,9 +1,10 @@
-import cx from 'classnames';
-import PropTypes from 'prop-types';
+import React from "react";
+import cx from "classnames";
+import PropTypes from "prop-types";
 
-import ErrorMessage from 'components/ErrorMessage/ErrorMessage';
+import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
-const defaultOptions = ['Yes', 'No'];
+const defaultOptions = ["Yes", "No"];
 
 const Radio = ({
   label,
@@ -17,8 +18,8 @@ const Radio = ({
   ...otherProps
 }) => (
   <div
-    className={cx('govuk-form-group', {
-      'govuk-form-group--error': error
+    className={cx("govuk-form-group", {
+      "govuk-form-group--error": error,
     })}
   >
     <label className="govuk-label govuk-label--m" htmlFor={name}>
@@ -32,13 +33,13 @@ const Radio = ({
     {children}
     {error && <ErrorMessage text={error.message} />}
     <div
-      className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
+      className={cx("govuk-radios", { "govuk-radios--inline": isRadiosInline })}
     >
-      {options.map(option => (
+      {options.map((option) => (
         <div className="govuk-radios__item" key={option}>
           <input
-            className={cx('govuk-radios__input', {
-              'govuk-input--error': error
+            className={cx("govuk-radios__input", {
+              "govuk-input--error": error,
             })}
             id={`${name}_${option}`}
             name={name}
@@ -67,7 +68,8 @@ Radio.propTypes = {
   options: PropTypes.array,
   hint: PropTypes.string,
   children: PropTypes.node,
-  error: PropTypes.shape({ message: PropTypes.string.isRequired })
+  error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  isRadiosInline: PropTypes.bool,
 };
 
 export default Radio;

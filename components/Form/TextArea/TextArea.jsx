@@ -1,14 +1,15 @@
-import PropTypes from 'prop-types';
-import cx from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import cx from "classnames";
 
 const TextArea = ({ label, hint, name, error, register, ...otherProps }) => (
   <div
-    className={cx('govuk-form-group', {
-      'govuk-form-group--error': Boolean(error)
+    className={cx("govuk-form-group", {
+      "govuk-form-group--error": Boolean(error),
     })}
   >
     {label && (
-      <label className="govuk-label govuk-label--l" for={name}>
+      <label className="govuk-label govuk-label--l" htmlFor={name}>
         {label}
       </label>
     )}
@@ -23,8 +24,8 @@ const TextArea = ({ label, hint, name, error, register, ...otherProps }) => (
       </span>
     )}
     <textarea
-      className={cx('govuk-textarea', {
-        'govuk-textarea--error': Boolean(error)
+      className={cx("govuk-textarea", {
+        "govuk-textarea--error": Boolean(error),
       })}
       id={name}
       name={name}
@@ -41,8 +42,9 @@ TextArea.propTypes = {
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
   error: PropTypes.shape({
-    message: PropTypes.string.isRequired
-  })
+    message: PropTypes.string.isRequired,
+  }),
+  register: PropTypes.func,
 };
 
 export default TextArea;

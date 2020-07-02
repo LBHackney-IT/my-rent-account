@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import cx from "classnames";
 
 import ErrorMessage from "components/ErrorMessage/ErrorMessage";
@@ -40,5 +42,17 @@ const TextInput = ({
     />
   </div>
 );
+
+TextInput.propTypes = {
+  label: PropTypes.string,
+  hint: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  register: PropTypes.func,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  type: PropTypes.string,
+  inputClassName: PropTypes.string,
+};
 
 export default TextInput;
