@@ -104,8 +104,7 @@ workflows:
             - assume-role-staging
           filters:
             branches:
-              only:
-                - master
+              only: master
       - permit-deploy-production:
           type: approval
           requires:

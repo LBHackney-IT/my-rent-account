@@ -11,6 +11,7 @@
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "govuk-frontend": "^3.7.0",
     "next": "9.4.4",
     "normalize.css": "^8.0.1",
