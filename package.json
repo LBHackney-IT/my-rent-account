@@ -11,18 +11,22 @@
     "format": "prettier '**/*.{js,jsx,css,scss,md}' --write --list-different"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "govuk-frontend": "^3.7.0",
     "next": "9.4.4",
     "normalize.css": "^8.0.1",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-hook-form": "^6.0.0",
     "restana": "^4.3.4",
     "serve-static": "^1.14.1",
     "serverless-http": "^2.4.1"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.0",
     "@testing-library/react": "^10.4.3",
+    "babel-jest": "^26.1.0",
     "eslint": "^7.3.1",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.17.1",
@@ -36,6 +40,7 @@
     "serverless": "^1.74.1"
   },
   "optionalDependencies": {
+    "@babel/core": "7.x",
     "typescript": "^3.9.5"
   },
   "husky": {

@@ -32,6 +32,9 @@ functions:
     environment:
       ENV: ${self:provider.stage}
       URL_PREFIX: ${self:custom.aliases.${self:provider.stage}}
+      AUTH_TOKEN: ${env:AUTH_TOKEN}
+      AUTH_URL: ${env:AUTH_URL}
+      API_URL: ${env:API_URL}
 
 resources:
   Resources:
