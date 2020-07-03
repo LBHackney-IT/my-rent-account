@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import Router from "next/router";
 
 import { Button, TextInput } from "components/Form";
-import { getAccount } from "utils/api/accounts";
 
 export default function Home() {
-  const [account, setAccount] = useState();
   const [error, setError] = useState();
   const { register, errors, handleSubmit } = useForm();
   const onSubmit = async (params) => {
     try {
       setError();
-      const data = await getAccount(params);
-      setAccount(data.value);
+      Router.push(
+        "/account",
+        `/account?accountNumber=${params.accountNumber}&postcode=${params.postcode}`
+      );
     } catch (e) {
       console.error(e);
       setError(e.response.data);
@@ -53,17 +54,7 @@ export default function Home() {
         />
         <Button text="Make a Payment" />
       </form>
-      {account && <pre>{JSON.stringify(account, null, 2)}</pre>}
       {error && <div>OPS!</div>}
     </div>
   );
 }
-
-export const getServerSideProps = () => {
-  return {
-    props: {
-      date: new Date().getTime(),
-      expirationDate: process.env.EXPIRATION_DATE || null,
-    },
-  };
-};
