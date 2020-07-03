@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const BasicSelect = ({ value, onChange = console.log, label, options }) => (
+const BasicSelect = ({ value, onChange, label, options }) => (
   <div className="govuk-!-margin-bottom-3">
     <div className="govuk-!-margin-bottom-1">
       <label htmlFor={label}>{label}</label>
