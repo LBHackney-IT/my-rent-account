@@ -7,7 +7,9 @@ export default async (req, res) => {
     case "GET":
       try {
         const data = getPaymentUrl({
-          sourceUrl: `${URL_PREFIX}${req.url}`,
+          sourceUrl: `https://${URL_PREFIX}/account/payment-confirmation?accountNumber=${
+            req.query.accountNumber
+          }&date=${new Date()}`,
           ...req.query,
         });
         res.status(200).json(data);
