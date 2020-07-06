@@ -32,3 +32,8 @@ html.lbh-template > body.lbh-template__body * {
   cursor: pointer;
   background-color: rgb(233, 246, 252);
 }
+
+.govuk-panel--error {
+  color: govuk-colour("white");
+  background-color: govuk-colour("red");
+}
