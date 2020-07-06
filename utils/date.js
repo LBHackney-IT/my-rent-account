@@ -5,3 +5,11 @@ export const getNextMonday = () => {
     month: "long",
   })}`;
 };
+
+export const getNiceFormatDate = (date) =>
+  new Date(date).toLocaleDateString("en-GB", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
