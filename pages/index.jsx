@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Router from "next/router";
+import isPostcodeValid from "uk-postcode-validator";
 
 import { Button, TextInput } from "components/Form";
 
@@ -50,7 +51,11 @@ export default function Home() {
           inputClassName="govuk-input--width-10"
           inputMode="numeric"
           error={errors.postcode}
-          register={register({ required: "Post Code is required" })}
+          register={register({
+            required: "Post Code is required",
+            validate: (value) =>
+              isPostcodeValid(value) || "You need a valid post code",
+          })}
         />
         <Button text="Make a Payment" />
       </form>
