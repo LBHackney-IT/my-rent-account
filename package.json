@@ -35,6 +35,7 @@
     "husky": ">=4",
     "jest": "^26.1.0",
     "lint-staged": ">=10",
+    "mockdate": "^3.0.2",
     "prettier": "^2.0.5",
     "sass": "^1.26.9",
     "serverless": "^1.74.1"
