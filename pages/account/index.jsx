@@ -8,6 +8,8 @@ import SummaryList from "components/SummaryList/SummaryList";
 import ErrorSummary from "components/ErrorSummary/ErrorSummary";
 import { Button } from "components/Form";
 
+import linkdata from "data/usefulLinks.json";
+
 const Account = ({
   name,
   currentBalance,
@@ -33,51 +35,72 @@ const Account = ({
           },
         ]}
       />
-      <h2>Balance and Transactions</h2>
-      <div
-        className={cx(
-          "govuk-panel",
-          hasArrears ? "govuk-panel--error" : "govuk-panel--confirmation"
-        )}
-      >
-        <h3 className="govuk-panel__title">Current Balance:</h3>
-        <div className="govuk-panel__body">
-          <strong>£{currentBalance}</strong> (
-          {hasArrears ? "Arrears" : "Credit"})
+      <div className="govuk-grid-row">
+        <div className="govuk-grid-column-three-quarters">
+          <h2>Balance and Transactions</h2>
+          <div
+            className={cx(
+              "govuk-panel",
+              hasArrears ? "govuk-panel--error" : "govuk-panel--confirmation"
+            )}
+          >
+            <h3 className="govuk-panel__title">Current Balance:</h3>
+            <div className="govuk-panel__body">
+              <strong>£{currentBalance}</strong> (
+              {hasArrears ? "Arrears" : "Credit"})
+            </div>
+          </div>
+          <div style={{ textAlign: "center" }}>
+            <div className="govuk-body">
+              Payment is due on: <strong>{nextPayment}</strong>
+            </div>
+            <div className="govuk-body">Payment amount due: £{toPay}</div>
+          </div>
+          {hasArrears && (
+            <ErrorSummary
+              body={
+                <>
+                  <p>
+                    Your account is now in arrears. You must make full payment
+                    to clear your account.
+                  </p>
+                  <p>
+                    If you have problems paying your rent you must get in
+                    contact with us immediately to prevent further action.
+                  </p>
+                </>
+              }
+            />
+          )}
+          <div
+            style={{ textAlign: "center" }}
+            onClick={() =>
+              Router.push(
+                "/account/payment",
+                `/account/payment?accountNumber=${accountNumber}`
+              )
+            }
+          >
+            <Button text="Make a Payment" />
+          </div>
         </div>
-      </div>
-      <div style={{ textAlign: "center" }}>
-        <div className="govuk-body">
-          Payment is due on: <strong>{nextPayment}</strong>
+        <div className="govuk-grid-column-one-quarter">
+          <h2>Useful links</h2>
+          {linkdata.map((usefulLinkData) => {
+            return (
+              <>
+                <p>
+                  <a
+                    className="govuk-link govuk-link--no-visited-state"
+                    href={usefulLinkData.link}
+                  >
+                    {usefulLinkData.title}
+                  </a>
+                </p>
+              </>
+            );
+          })}
         </div>
-        <div className="govuk-body">Payment amount due: £{toPay}</div>
-      </div>
-      {hasArrears && (
-        <ErrorSummary
-          body={
-            <>
-              <p>
-                Your account is now in arrears. You must make full payment to
-                clear your account.
-              </p>
-              <p>
-                If you have problems paying your rent you must get in contact
-                with us immediately to prevent further action.
-              </p>
-            </>
-          }
-        />
-      )}
-      <div
-        style={{ textAlign: "center" }}
-        onClick={() =>
-          Router.push(
-            "/account/payment",
-            `/account/payment?accountNumber=${accountNumber}`
-          )
-        }
-      >
-        <Button text="Make a Payment" />
       </div>
     </div>
   );
