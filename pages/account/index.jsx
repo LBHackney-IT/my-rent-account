@@ -6,9 +6,9 @@ import Router from "next/router";
 import { getAccount, getAccountName } from "lib/api/accounts";
 import SummaryList from "components/SummaryList/SummaryList";
 import ErrorSummary from "components/ErrorSummary/ErrorSummary";
+import RentBreakdown from "components/RentBreakdown/RentBreakdown";
+import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 import { Button } from "components/Form";
-
-import linkdata from "data/usefulLinks.json";
 
 const Account = ({
   name,
@@ -17,6 +17,8 @@ const Account = ({
   hasArrears,
   nextPayment,
   toPay,
+  rent,
+  benefits,
 }) => {
   return (
     <div>
@@ -36,7 +38,7 @@ const Account = ({
         ]}
       />
       <div className="govuk-grid-row">
-        <div className="govuk-grid-column-three-quarters">
+        <div className="govuk-grid-column-two-thirds">
           <h2>Balance and Transactions</h2>
           <div
             className={cx(
@@ -84,22 +86,10 @@ const Account = ({
             <Button text="Make a Payment" />
           </div>
         </div>
-        <div className="govuk-grid-column-one-quarter">
-          <h2>Useful links</h2>
-          {linkdata.map((usefulLinkData) => {
-            return (
-              <>
-                <p>
-                  <a
-                    className="govuk-link govuk-link--no-visited-state"
-                    href={usefulLinkData.link}
-                  >
-                    {usefulLinkData.title}
-                  </a>
-                </p>
-              </>
-            );
-          })}
+        <div className="govuk-grid-column-one-third">
+          <RentBreakdown rent={rent} toPay={toPay} benefits={benefits} />
+          <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+          <UsefulLinks />
         </div>
       </div>
     </div>
@@ -112,6 +102,8 @@ Account.propTypes = {
   accountNumber: PropTypes.string.isRequired,
   hasArrears: PropTypes.bool.isRequired,
   toPay: PropTypes.number.isRequired,
+  rent: PropTypes.number.isRequired,
+  benefits: PropTypes.number.isRequired,
   nextPayment: PropTypes.string.isRequired,
 };
 
