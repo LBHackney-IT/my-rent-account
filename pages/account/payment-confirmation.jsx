@@ -1,21 +1,19 @@
 import React from "react";
 import cx from "classnames";
-import { useRouter } from "next/router";
+import PropTypes from "prop-types";
 
 import SummaryList from "components/SummaryList/SummaryList";
 import { getTransactionType } from "utils/payment";
 import { getNiceFormatDate } from "utils/date";
 
-const PaymentConfirmation = () => {
-  const router = useRouter();
-  const {
-    amount,
-    accountNumber,
-    receiptnumber,
-    transactiontype,
-    date,
-    serviceprocessed,
-  } = router.query;
+const PaymentConfirmation = ({
+  amount,
+  accountNumber,
+  receiptnumber,
+  transactiontype,
+  date,
+  serviceprocessed,
+}) => {
   const payed = `£${parseFloat(amount).toFixed(2)}`;
   const isPaymentSuccessful = serviceprocessed === "true";
   return (
@@ -86,4 +84,17 @@ const PaymentConfirmation = () => {
   );
 };
 
+PaymentConfirmation.propTypes = {
+  amount: PropTypes.string.isRequired,
+  accountNumber: PropTypes.string.isRequired,
+  receiptnumber: PropTypes.string.isRequired,
+  transactiontype: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  serviceprocessed: PropTypes.string.isRequired,
+};
+
 export default PaymentConfirmation;
+
+export const getServerSideProps = async ({ query }) => ({
+  props: query,
+});
