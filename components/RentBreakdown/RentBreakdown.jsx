@@ -33,7 +33,7 @@ const RentBreakdown = ({ rent, benefits, toPay }) => {
           ))}
         </tbody>
       </table>
-      <a href="#" className="govuk-link">
+      <a href="/account/rent-breakdown" className="govuk-link">
         <strong>See how your rent is calculated</strong>
       </a>
     </>

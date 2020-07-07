@@ -60,7 +60,7 @@ exports[`RentBreakdown component should render properly 1`] = `
   </table>
   <a
     class="govuk-link"
-    href="#"
+    href="/account/rent-breakdown"
   >
     <strong>
       See how your rent is calculated
