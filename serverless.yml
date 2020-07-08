@@ -36,6 +36,8 @@ functions:
       AUTH_URL: ${env:AUTH_URL}
       API_URL: ${env:API_URL}
       PAYMENT_URL: ${env:PAYMENT_URL}
+      AWS_ENDPOINT: ${env:AWS_ENDPOINT}
+      AWS_SECRET: ${env:AWS_SECRET}
 
 resources:
   Resources:
