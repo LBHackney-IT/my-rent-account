@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`transactionsTable component should render properly 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Rent
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Paid In
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Balance
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          9/5/2016
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Total Charge
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £0.00
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £185.68
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          4/10/2016
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Housing Benefit
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £121.16
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £214.92
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

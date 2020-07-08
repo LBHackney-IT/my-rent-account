@@ -4,6 +4,8 @@ import cx from "classnames";
 import Router from "next/router";
 
 import { getAccount, getAccountName } from "lib/api/accounts";
+import { getTransactions } from "lib/api/transactions";
+import TransactionsTable from "components/TransactionsTable/TransactionsTable";
 import SummaryList from "components/SummaryList/SummaryList";
 import ErrorSummary from "components/ErrorSummary/ErrorSummary";
 import RentBreakdown from "components/RentBreakdown/RentBreakdown";
@@ -19,6 +21,8 @@ const Account = ({
   toPay,
   rent,
   benefits,
+  postcode,
+  transactions,
 }) => {
   return (
     <div>
@@ -85,6 +89,30 @@ const Account = ({
           >
             <Button text="Make a Payment" />
           </div>
+          {transactions && (
+            <>
+              <p className="govuk-body">
+                <strong>Recent Transaction and Statements:</strong>
+              </p>
+              <p className="govuk-body">
+                Due to end of week processing, your current and running balances
+                may not be correct on a Sunday. We are working to resolve this
+                issue and apologise for the inconvenience this may cause.
+              </p>
+              <TransactionsTable transactions={transactions} />
+              <div
+                style={{ textAlign: "center" }}
+                onClick={() =>
+                  Router.push(
+                    "/account/transaction-history",
+                    `/account/transaction-history?accountNumber=${accountNumber}&postcode=${postcode}`
+                  )
+                }
+              >
+                <Button text="View Rent Statements" />
+              </div>
+            </>
+          )}
         </div>
         <div className="govuk-grid-column-one-third">
           <RentBreakdown rent={rent} toPay={toPay} benefits={benefits} />
@@ -101,10 +129,12 @@ Account.propTypes = {
   currentBalance: PropTypes.string.isRequired,
   accountNumber: PropTypes.string.isRequired,
   hasArrears: PropTypes.bool.isRequired,
-  toPay: PropTypes.number.isRequired,
+  toPay: PropTypes.string.isRequired,
   rent: PropTypes.number.isRequired,
-  benefits: PropTypes.number.isRequired,
+  benefits: PropTypes.string.isRequired,
   nextPayment: PropTypes.string.isRequired,
+  postcode: PropTypes.string.isRequired,
+  transactions: PropTypes.array,
 };
 
 export default Account;
@@ -112,10 +142,12 @@ export default Account;
 export const getServerSideProps = async ({ query }) => {
   await getAccount(query);
   const accountName = await getAccountName(query);
+  const transactions = await getTransactions(query);
   return {
     props: {
       ...accountName,
-      accountNumber: query.accountNumber,
+      ...query,
+      transactions: transactions.slice(0, 3),
     },
   };
 };
