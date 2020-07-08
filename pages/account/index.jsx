@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Router from "next/router";
-
+import { postAuditLogin } from "lib/api/audit";
 import { getAccount, getAccountName } from "lib/api/accounts";
 import SummaryList from "components/SummaryList/SummaryList";
 import ErrorSummary from "components/ErrorSummary/ErrorSummary";
@@ -111,6 +111,7 @@ export default Account;
 
 export const getServerSideProps = async ({ query }) => {
   await getAccount(query);
+  await postAuditLogin(query);
   const accountName = await getAccountName(query);
   return {
     props: {
