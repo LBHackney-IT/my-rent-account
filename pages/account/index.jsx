@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Router from "next/router";
-
+import { postAuditLogin } from "lib/api/audit";
 import { getAccount, getAccountName } from "lib/api/accounts";
 import { getTransactions } from "lib/api/transactions";
 import TransactionsTable from "components/TransactionsTable/TransactionsTable";
@@ -140,7 +140,8 @@ Account.propTypes = {
 export default Account;
 
 export const getServerSideProps = async ({ query }) => {
-  await getAccount(query);
+  const account = await getAccount(query);
+  await postAuditLogin({ ...query, ...account });
   const accountName = await getAccountName(query);
   const transactions = await getTransactions(query);
   return {
