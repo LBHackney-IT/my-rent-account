@@ -100,7 +100,12 @@ custom:
   securityGroups:
     staging:
       - sg-0cd6d0dd6097bb9e8
+    production:
+      - sg-04b71cc889c5790e7
   subnets:
     staging:
       - subnet-06d3de1bd9181b0d7
       - subnet-0ed7d7713d1127656
+    production:
+      - subnet-0b7b8fea07efabf34
+      - subnet-01d3657f97a243261
