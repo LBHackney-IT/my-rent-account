@@ -110,8 +110,8 @@ Account.propTypes = {
 export default Account;
 
 export const getServerSideProps = async ({ query }) => {
-  await getAccount(query);
-  await postAuditLogin(query);
+  const account = await getAccount(query);
+  await postAuditLogin({ ...query, ...account });
   const accountName = await getAccountName(query);
   return {
     props: {
