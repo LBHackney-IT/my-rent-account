@@ -41,6 +41,8 @@ functions:
       PAYMENT_URL: ${env:PAYMENT_URL}
       AWS_ENDPOINT: ${env:AWS_ENDPOINT}
       AWS_SECRET: ${env:AWS_SECRET}
+      SANDBOX_DOMAIN: ${env:SANDBOX_DOMAIN}
+      SANDBOX_LINK_ACCOUNT: ${env:SANDBOX_LINK_ACCOUNT}
 
 resources:
   Resources:
