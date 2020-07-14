@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { getSession } from "lib/session";
 
 import { getAccountName } from "lib/api/accounts";
 import { Button, Radios, TextInput } from "components/Form";
@@ -95,12 +96,13 @@ Account.propTypes = {
 
 export default Account;
 
-export const getServerSideProps = async ({ query }) => {
-  const accountName = await getAccountName(query);
+export const getServerSideProps = async (ctx) => {
+  const account = getSession(ctx);
+  const accountName = await getAccountName(account);
   return {
     props: {
       ...accountName,
-      accountNumber: query.accountNumber,
+      accountNumber: account.accountNumber,
     },
   };
 };

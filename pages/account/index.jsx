@@ -11,6 +11,7 @@ import ErrorSummary from "components/ErrorSummary/ErrorSummary";
 import RentBreakdown from "components/RentBreakdown/RentBreakdown";
 import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 import { Button } from "components/Form";
+import { getSession } from "lib/session";
 
 const Account = ({
   name,
@@ -139,15 +140,16 @@ Account.propTypes = {
 
 export default Account;
 
-export const getServerSideProps = async ({ query }) => {
-  const account = await getAccount(query);
-  await postAuditLogin({ ...query, ...account });
-  const accountName = await getAccountName(query);
-  const transactions = await getTransactions(query);
+export const getServerSideProps = async (ctx) => {
+  const account = getSession(ctx);
+  const acc = await getAccount(account);
+  await postAuditLogin({ ...account, ...acc });
+  const accountName = await getAccountName(account);
+  const transactions = await getTransactions(account);
   return {
     props: {
       ...accountName,
-      ...query,
+      ...account,
       transactions: transactions.slice(0, 3),
     },
   };

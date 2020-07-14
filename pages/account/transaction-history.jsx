@@ -1,6 +1,7 @@
 import React from "react";
 import Router from "next/router";
 
+import { getSession } from "lib/session";
 import { getTransactions } from "lib/api/transactions";
 import TransactionsTable from "components/TransactionsTable/TransactionsTable";
 
@@ -27,8 +28,9 @@ TransactionHistoryPage.propTypes = {
 
 export default TransactionHistoryPage;
 
-export const getServerSideProps = async ({ query }) => {
-  const transactions = await getTransactions(query);
+export const getServerSideProps = async (ctx) => {
+  const account = getSession(ctx);
+  const transactions = await getTransactions(account);
   return {
     props: {
       transactions,

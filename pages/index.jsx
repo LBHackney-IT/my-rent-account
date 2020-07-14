@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import Router from "next/router";
 import isPostcodeValid from "uk-postcode-validator";
+import { getSession, setSession } from "lib/session";
 
 import { Button, TextInput } from "components/Form";
 
@@ -11,10 +13,9 @@ export default function Home() {
   const onSubmit = async (params) => {
     try {
       setError();
-      Router.push(
-        "/account",
-        `/account?accountNumber=${params.accountNumber}&postcode=${params.postcode}`
-      );
+      await axios.get("/api/accounts", { params });
+      setSession(params);
+      Router.push("/account", `/account`);
     } catch (e) {
       console.error(e);
       setError(e.response.data);
@@ -57,9 +58,22 @@ export default function Home() {
               isPostcodeValid(value) || "You need a valid post code",
           })}
         />
-        <Button text="Make a Payment" />
+        <Button text="View account" disabled={submitting} />
       </form>
-      {error && <div>OPS!</div>}
+      {error && <ErrorMessage text={error} />}
     </div>
   );
 }
+
+export const getServerSideProps = async (ctx) => {
+  const account = getSession(ctx, false);
+  if (account) {
+    ctx.res.writeHead(302, {
+      Location: "/account",
+    });
+    ctx.res.end();
+  }
+  return {
+    props: {},
+  };
+};
