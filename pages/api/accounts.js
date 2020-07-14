@@ -5,10 +5,15 @@ export default async (req, res) => {
     case "GET":
       try {
         const data = await getAccount(req.query);
-        res.status(200).json(data);
+        if (data) {
+          res.status(200).json(data);
+        } else {
+          res.status(404).json("Account Not Found");
+        }
       } catch (error) {
-        console.log("Application list error:", error);
-        res.status(500).json("Unable to list applications");
+        console.log(error.status);
+        console.log("Account get error:", error);
+        res.status(500).json("Unable to get the account");
       }
       break;
 

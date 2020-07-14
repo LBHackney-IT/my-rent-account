@@ -5,21 +5,36 @@ import Router from "next/router";
 import isPostcodeValid from "uk-postcode-validator";
 import { getSession, setSession } from "lib/session";
 
+import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 import { Button, TextInput } from "components/Form";
 
 export default function Home() {
   const [error, setError] = useState();
+  const [submitting, setSubmitting] = useState();
   const { register, errors, handleSubmit } = useForm();
   const onSubmit = async (params) => {
     try {
+      setSubmitting(true);
       setError();
       await axios.get("/api/accounts", { params });
       setSession(params);
       Router.push("/account", `/account`);
     } catch (e) {
       console.error(e);
-      setError(e.response.data);
+      setError(
+        e.response.status === 404 ? (
+          <div>
+            <p>
+              This rent account number and postcode combination is incorrect.
+            </p>
+            Please check if you have entered the correct information.
+          </div>
+        ) : (
+          e.response.data
+        )
+      );
     }
+    setSubmitting(false);
   };
   return (
     <div>
