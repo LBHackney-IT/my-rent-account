@@ -18,7 +18,6 @@ const RentBreakdown = ({ rent, benefits, toPay }) => {
   ];
   return (
     <>
-      <h2>Rent Breakdown</h2>
       <table className="govuk-table">
         <tbody className="govuk-table__body">
           {breakdown.map(({ title, value }) => (

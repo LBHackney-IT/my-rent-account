@@ -2,24 +2,28 @@
 
 exports[`UsefulLinks component should render properly 1`] = `
 <DocumentFragment>
-  <h2>
-    Useful links
-  </h2>
-  <p>
-    <a
-      class="govuk-link"
-      href="https://hackney.gov.uk/foo/"
-    >
-      foo
-    </a>
-  </p>
-  <p>
-    <a
-      class="govuk-link"
-      href="https://hackney.gov.uk/bar/"
-    >
-      bar
-    </a>
-  </p>
+  <div
+    class="govuk-body"
+  >
+    <h2>
+      Useful links
+    </h2>
+    <p>
+      <a
+        class="govuk-link"
+        href="https://hackney.gov.uk/foo/"
+      >
+        foo
+      </a>
+    </p>
+    <p>
+      <a
+        class="govuk-link"
+        href="https://hackney.gov.uk/bar/"
+      >
+        bar
+      </a>
+    </p>
+  </div>
 </DocumentFragment>
 `;

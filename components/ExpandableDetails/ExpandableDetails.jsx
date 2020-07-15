@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const ExpandableDetails = ({ summary = "show more", children }) => (
   <details
-    className="govuk-details  govuk-!-margin-bottom-3"
+    className="govuk-details govuk-!-margin-bottom-3"
     data-module="govuk-details"
   >
     <summary className="govuk-details__summary">

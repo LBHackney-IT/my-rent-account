@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { getSession } from "lib/session";
 
-import { getAccountName } from "lib/api/accounts";
+import { getAccountDetails } from "lib/api/accounts";
 import { Button, Radios, TextInput } from "components/Form";
 
 const AnotherAmountRadio = ({ errors, register }) => (
@@ -98,7 +98,7 @@ export default Account;
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx);
-  const accountName = await getAccountName(account);
+  const accountName = await getAccountDetails(account);
   return {
     props: {
       ...accountName,

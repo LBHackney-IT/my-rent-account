@@ -2,9 +2,6 @@
 
 exports[`RentBreakdown component should render properly 1`] = `
 <DocumentFragment>
-  <h2>
-    Rent Breakdown
-  </h2>
   <table
     class="govuk-table"
   >

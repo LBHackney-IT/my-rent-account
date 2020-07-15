@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Router from "next/router";
-import { postAuditLogin } from "lib/api/audit";
-import { getAccount, getAccountName } from "lib/api/accounts";
+
+import { getAccountDetails } from "lib/api/accounts";
 import { getTransactions } from "lib/api/transactions";
 import TransactionsTable from "components/TransactionsTable/TransactionsTable";
 import SummaryList from "components/SummaryList/SummaryList";
@@ -11,7 +11,10 @@ import ErrorSummary from "components/ErrorSummary/ErrorSummary";
 import RentBreakdown from "components/RentBreakdown/RentBreakdown";
 import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 import { Button } from "components/Form";
+import NotLoggedBox from "components/NotLoggedBox/NotLoggedBox";
 import { getSession } from "lib/session";
+
+const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
 const Account = ({
   name,
@@ -22,8 +25,10 @@ const Account = ({
   toPay,
   rent,
   benefits,
-  postcode,
   transactions,
+  isWithPrivacy,
+  loginUrl,
+  registerUrl,
 }) => {
   return (
     <div>
@@ -81,12 +86,7 @@ const Account = ({
           )}
           <div
             style={{ textAlign: "center" }}
-            onClick={() =>
-              Router.push(
-                "/account/payment",
-                `/account/payment?accountNumber=${accountNumber}`
-              )
-            }
+            onClick={() => Router.push("/account/payment")}
           >
             <Button text="Make a Payment" />
           </div>
@@ -95,28 +95,35 @@ const Account = ({
               <p className="govuk-body">
                 <strong>Recent Transaction and Statements:</strong>
               </p>
-              <p className="govuk-body">
-                Due to end of week processing, your current and running balances
-                may not be correct on a Sunday. We are working to resolve this
-                issue and apologise for the inconvenience this may cause.
-              </p>
-              <TransactionsTable transactions={transactions} />
-              <div
-                style={{ textAlign: "center" }}
-                onClick={() =>
-                  Router.push(
-                    "/account/transaction-history",
-                    `/account/transaction-history?accountNumber=${accountNumber}&postcode=${postcode}`
-                  )
-                }
-              >
-                <Button text="View Rent Statements" />
-              </div>
+              {isWithPrivacy ? (
+                <NotLoggedBox loginUrl={loginUrl} registerUrl={registerUrl} />
+              ) : (
+                <>
+                  <p className="govuk-body">
+                    Due to end of week processing, your current and running
+                    balances may not be correct on a Sunday. We are working to
+                    resolve this issue and apologise for the inconvenience this
+                    may cause.
+                  </p>
+                  <TransactionsTable transactions={transactions} />
+                  <div
+                    style={{ textAlign: "center" }}
+                    onClick={() => Router.push("/account/transaction-history")}
+                  >
+                    <Button text="View Rent Statements" />
+                  </div>
+                </>
+              )}
             </>
           )}
         </div>
         <div className="govuk-grid-column-one-third">
-          <RentBreakdown rent={rent} toPay={toPay} benefits={benefits} />
+          <h2>Rent Breakdown</h2>
+          {isWithPrivacy ? (
+            <NotLoggedBox loginUrl={loginUrl} registerUrl={registerUrl} />
+          ) : (
+            <RentBreakdown rent={rent} toPay={toPay} benefits={benefits} />
+          )}
           <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
           <UsefulLinks />
         </div>
@@ -134,23 +141,28 @@ Account.propTypes = {
   rent: PropTypes.number.isRequired,
   benefits: PropTypes.string.isRequired,
   nextPayment: PropTypes.string.isRequired,
-  postcode: PropTypes.string.isRequired,
   transactions: PropTypes.array,
+  isWithPrivacy: PropTypes.bool,
+  loginUrl: PropTypes.string.isRequired,
+  registerUrl: PropTypes.string.isRequired,
 };
 
 export default Account;
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx);
-  const acc = await getAccount(account);
-  await postAuditLogin({ ...account, ...acc });
-  const accountName = await getAccountName(account);
-  const transactions = await getTransactions(account);
+  const isWithPrivacy = Boolean(!account.cssoId);
+  const accountDetails = await getAccountDetails(account, isWithPrivacy);
+  const transactions = await getTransactions({ ...account, ...accountDetails });
+  const queryString = `?grant_type=authorization_code&client_id=${CSSO_ID}&client_secret=${CSSO_SECRET}&scope=openid%20email&response_type=code&redirect_uri=https://${URL_PREFIX}/auth`;
   return {
     props: {
-      ...accountName,
+      ...accountDetails,
       ...account,
       transactions: transactions.slice(0, 3),
+      isWithPrivacy,
+      registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
+      loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
     },
   };
 };

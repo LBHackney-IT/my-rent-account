@@ -1,7 +1,12 @@
-import { getLinkedAccount, linkAccount, unlinkAccount } from "lib/api/accounts";
+import {
+  getAccount,
+  getLinkedAccount,
+  linkAccount,
+  unlinkAccount,
+} from "lib/api/accounts";
 
 export default async (req, res) => {
-  const { accountNumber, cssoId, linkId } = req.query;
+  const { accountNumber, cssoId, linkId, postcode } = req.query;
   switch (req.method) {
     case "GET":
       try {
@@ -14,6 +19,7 @@ export default async (req, res) => {
       break;
     case "POST":
       try {
+        await getAccount({ accountNumber, postcode });
         const data = await linkAccount({ accountNumber, cssoId });
         res.status(200).json(data);
       } catch (error) {
