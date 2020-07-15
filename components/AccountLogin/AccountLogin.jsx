@@ -19,6 +19,10 @@ const AccountLogin = ({ onSubmit, submitText, isSubmitting }) => {
         error={errors.accountNumber}
         register={register({
           required: "Rent Account Number is required",
+          minLength: {
+            value: 10,
+            message: "You are missing some digits in the rent account number",
+          },
           pattern: {
             value: /^[0-9]+$/,
             message: "Account Number must be a number",
@@ -30,7 +34,6 @@ const AccountLogin = ({ onSubmit, submitText, isSubmitting }) => {
         name="postcode"
         placeholder="e.g. E8 1EA"
         inputClassName="govuk-input--width-10"
-        inputMode="numeric"
         error={errors.postcode}
         register={register({
           required: "Post Code is required",
