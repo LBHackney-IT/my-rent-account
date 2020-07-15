@@ -27,7 +27,7 @@ export const getServerSideProps = async (ctx) => {
       });
     } else {
       const accountDetails = await getAccountDetails({
-        accountNumber: accounts.accountNumber,
+        accountNumber: account.accountNumber,
       });
       await linkAccount(account);
       await postAuditLogin(accountDetails);
