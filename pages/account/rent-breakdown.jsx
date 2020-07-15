@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { getRentBreakdown } from "lib/api/tenancy";
+import { getAllRentBreakdowns } from "lib/api/tenancy";
 import SummaryList from "components/SummaryList/SummaryList";
 import UsefulLinks from "components/UsefulLinks/UsefulLinks";
+import { getSession } from "lib/session";
+import { getAccountDetails } from "lib/api/accounts";
 
 const Account = ({ items }) => {
   return (
@@ -27,10 +29,13 @@ Account.propTypes = {
 
 export default Account;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (ctx) => {
+  const account = getSession(ctx);
+  const { tenancyAgreementId } = await getAccountDetails(account);
+  const items = await getAllRentBreakdowns({ tenancyAgreementId });
   return {
     props: {
-      items: getRentBreakdown(),
+      items,
     },
   };
 };
