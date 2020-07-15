@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AccountLogin component should render properly 1`] = `
+<DocumentFragment>
+  <form>
+    <div
+      class="govuk-form-group"
+    >
+      <label
+        class="govuk-label govuk-label--m"
+        for="accountNumber"
+      >
+        Rent Account Number:
+      </label>
+      <span
+        class="govuk-hint"
+        id="accountNumber-hint"
+      >
+        You will find this on your rent card or statement
+      </span>
+      <input
+        aria-describedby="accountNumber-hint"
+        class="govuk-input govuk-input--width-10"
+        data-testid="accountNumber"
+        id="accountNumber"
+        inputmode="numeric"
+        name="accountNumber"
+        placeholder="e.g. 1234567890"
+        type="text"
+      />
+    </div>
+    <div
+      class="govuk-form-group"
+    >
+      <label
+        class="govuk-label govuk-label--m"
+        for="postcode"
+      >
+        Post Code:
+      </label>
+      <input
+        class="govuk-input govuk-input--width-10"
+        data-testid="postcode"
+        id="postcode"
+        name="postcode"
+        placeholder="e.g. E8 1EA"
+        type="text"
+      />
+    </div>
+    <button
+      class="govuk-button"
+      data-module="govuk-button"
+    >
+      foo
+    </button>
+  </form>
+</DocumentFragment>
+`;
