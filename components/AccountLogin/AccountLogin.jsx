@@ -30,7 +30,6 @@ const AccountLogin = ({ onSubmit, submitText, isSubmitting }) => {
         name="postcode"
         placeholder="e.g. E8 1EA"
         inputClassName="govuk-input--width-10"
-        inputMode="numeric"
         error={errors.postcode}
         register={register({
           required: "Post Code is required",
