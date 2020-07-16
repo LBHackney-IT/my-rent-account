@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import cx from "classnames";
 import Router from "next/router";
+import axios from "axios";
 
 import { getAccountDetails } from "lib/api/accounts";
 import { getTransactions } from "lib/api/transactions";
@@ -12,7 +13,7 @@ import RentBreakdown from "components/RentBreakdown/RentBreakdown";
 import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 import { Button } from "components/Form";
 import NotLoggedBox from "components/NotLoggedBox/NotLoggedBox";
-import { getSession } from "lib/session";
+import { getSession, setSession } from "lib/session";
 
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
@@ -20,6 +21,7 @@ const Account = ({
   name,
   currentBalance,
   accountNumber,
+  cssoId,
   hasArrears,
   nextPayment,
   toPay,
@@ -44,6 +46,16 @@ const Account = ({
           {
             title: "Rent Account:",
             value: accountNumber,
+            cta: !isWithPrivacy && {
+              onClick: async () => {
+                await axios.delete(
+                  `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
+                );
+                setSession({ cssoId });
+                Router.push("/link-account");
+              },
+              text: "unlink account",
+            },
           },
         ]}
       />
@@ -136,6 +148,7 @@ Account.propTypes = {
   name: PropTypes.string.isRequired,
   currentBalance: PropTypes.string.isRequired,
   accountNumber: PropTypes.string.isRequired,
+  cssoId: PropTypes.string.isRequired,
   hasArrears: PropTypes.bool.isRequired,
   toPay: PropTypes.string.isRequired,
   rent: PropTypes.number.isRequired,

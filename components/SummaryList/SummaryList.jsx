@@ -4,18 +4,17 @@ import PropTypes from "prop-types";
 const SummaryList = ({ list }) => (
   <dl className="govuk-summary-list">
     {list &&
-      list.map(({ title, value, href }) => (
+      list.map(({ title, value, cta }) => (
         <div key={title} className="govuk-summary-list__row">
           <dt className="govuk-summary-list__key">{title}</dt>
           <dd className="govuk-summary-list__value">{value}</dd>
-          {href && (
-            <dd className="govuk-summary-list__actions">
-              <a className="govuk-link" href="#">
-                Change
-                <span className="govuk-visually-hidden"> {title}</span>
+          <dd className="govuk-summary-list__actions">
+            {cta && (
+              <a className="govuk-link" onClick={cta.onClick}>
+                {cta.text}
               </a>
-            </dd>
-          )}
+            )}
+          </dd>
         </div>
       ))}
   </dl>
@@ -26,7 +25,10 @@ SummaryList.propTypes = {
     PropTypes.shape({
       title: PropTypes.string.isRequired,
       value: PropTypes.node.isRequired,
-      href: PropTypes.string,
+      cta: PropTypes.shape({
+        onClick: PropTypes.func.isRequired,
+        text: PropTypes.string.isRequired,
+      }),
     }).isRequired
   ),
 };
