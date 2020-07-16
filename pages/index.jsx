@@ -1,43 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from "react";
 import PropTypes from "prop-types";
-import Router from "next/router";
 import { getSession, setSession } from "lib/session";
-
-import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
 import AccountLogin from "components/AccountLogin/AccountLogin";
 
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
 export default function Home({ loginUrl, registerUrl }) {
-  const [error, setError] = useState();
-  const [submitting, setSubmitting] = useState();
-  const onSubmit = async (params) => {
-    try {
-      setSubmitting(true);
-      setError();
-      const account = await axios.get("/api/accounts", { params });
-      await axios.post("/api/audit", { ...params, ...account });
-      setSession(params);
-      Router.push("/account");
-    } catch (e) {
-      console.error(e);
-      setError(
-        e.response.status === 404 ? (
-          <div>
-            <p>
-              This rent account number and postcode combination is incorrect.
-            </p>
-            Please check if you have entered the correct information.
-          </div>
-        ) : (
-          e.response.data
-        )
-      );
-    }
-    setSubmitting(false);
-  };
   return (
     <div>
       <h1>My Rent Account</h1>
@@ -45,13 +14,7 @@ export default function Home({ loginUrl, registerUrl }) {
         To view your rent account balance and make a payment, please enter your
         rent account number and post code in the boxes below.
       </p>
-
-      <AccountLogin
-        onSubmit={onSubmit}
-        submitText="View account"
-        isSubmitting={submitting}
-      />
-      {error && <ErrorMessage text={error} />}
+      <AccountLogin onSubmit={setSession} submitText="View account" />
       <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
       <h2>Login to One Account</h2>
       <p className="govuk-body">
