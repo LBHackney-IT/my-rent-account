@@ -6,7 +6,7 @@ import {
 } from "lib/api/accounts";
 
 export default async (req, res) => {
-  const { accountNumber, cssoId, linkId, postcode } = req.query;
+  const { accountNumber, cssoId, postcode } = req.query;
   switch (req.method) {
     case "GET":
       try {
@@ -29,8 +29,20 @@ export default async (req, res) => {
       break;
     case "DELETE":
       try {
-        await unlinkAccount({ linkId });
-        res.status(204).end();
+        const accounts = await getLinkedAccount({ cssoId });
+        const linkedAccount =
+          accounts &&
+          accounts.find(
+            ({ rent_account_number }) => rent_account_number === accountNumber
+          );
+        if (!linkedAccount) {
+          res.status(404).end();
+        } else {
+          await unlinkAccount({
+            linkId: linkedAccount.hackney_csso_linked_rent_accountid,
+          });
+          res.status(204).end();
+        }
       } catch (error) {
         console.log("Unlink Account error:", error);
         res.status(500).json(error);
