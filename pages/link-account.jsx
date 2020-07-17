@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { getSession, updateSession } from "lib/session";
 import AccountLogin from "components/AccountLogin/AccountLogin";
+import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 
 const LinkAccount = ({ cssoId }) => (
   <div>
@@ -28,6 +29,8 @@ const LinkAccount = ({ cssoId }) => (
       }}
       submitText="Link your Rent Account"
     />
+    <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+    <UsefulLinks />
   </div>
 );
 
