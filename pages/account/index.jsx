@@ -52,7 +52,7 @@ const Account = ({
                   `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
                 );
                 setSession({ cssoId });
-                Router.push("/link-account");
+                Router.push("/link-account?unlinkSuccess=true");
               },
               text: "unlink account",
             },
