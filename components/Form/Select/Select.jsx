@@ -13,8 +13,6 @@ const Select = ({
   register,
   error,
   children,
-  isUnselectable = true,
-  ignoreValue,
   value,
 }) => (
   <div
@@ -22,9 +20,11 @@ const Select = ({
       "govuk-form-group--error": error,
     })}
   >
-    <label className="govuk-label govuk-label--m" htmlFor={name}>
-      {label}
-    </label>
+    {label && (
+      <label className="govuk-label" htmlFor={name}>
+        {label}
+      </label>
+    )}
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
         {hint}
@@ -39,9 +39,8 @@ const Select = ({
       ref={register}
       aria-describedby={hint && `${name}-hint`}
       onChange={(e) => onChange && onChange(e.target.value)}
-      value={ignoreValue ? undefined : value}
+      value={value}
     >
-      {isUnselectable && <option key="empty" value=""></option>}
       {options.map((option) => {
         const { value, text } =
           typeof option === "string" ? { value: option, text: option } : option;
@@ -56,7 +55,7 @@ const Select = ({
 );
 
 Select.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   name: PropTypes.string.isRequired,
   hint: PropTypes.string,
   onChange: PropTypes.func,
@@ -64,7 +63,7 @@ Select.propTypes = {
     PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.shape({
-        value: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         text: PropTypes.string.isRequired,
       }),
     ])
@@ -73,9 +72,7 @@ Select.propTypes = {
   register: PropTypes.func,
   children: PropTypes.node,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
-  isUnselectable: PropTypes.bool,
-  ignoreValue: PropTypes.bool,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Select;

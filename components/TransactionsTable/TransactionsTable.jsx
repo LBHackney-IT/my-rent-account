@@ -38,7 +38,7 @@ const transactionsTable = ({ transactions }) => (
         {transactions.map((transaction, i) => (
           <tr key={i} className="govuk-table__row">
             <td className="govuk-table__cell">
-              {new Date(transaction.date).toLocaleDateString()}
+              {new Date(transaction.date).toLocaleDateString("en-GB")}
             </td>
             <td className="govuk-table__cell">{transaction.description}</td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
