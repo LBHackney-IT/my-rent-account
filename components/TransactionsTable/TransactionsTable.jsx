@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { getProperCurrency } from "utils/string";
+import { getProperCurrency, getProperValue } from "utils/string";
 
 const transactionsTable = ({ transactions }) => (
   <div style={{ overflow: "auto" }}>
@@ -42,13 +42,13 @@ const transactionsTable = ({ transactions }) => (
             </td>
             <td className="govuk-table__cell">{transaction.description}</td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
-              {getProperCurrency(transaction.out)}
+              {getProperValue(getProperCurrency(transaction.out))}
             </td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
               {getProperCurrency(transaction.in)}
             </td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
-              {getProperCurrency(transaction.balance)}
+              {getProperValue(getProperCurrency(transaction.balance))}
             </td>
           </tr>
         ))}
