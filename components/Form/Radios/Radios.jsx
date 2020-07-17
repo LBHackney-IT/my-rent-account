@@ -52,6 +52,7 @@ const Radio = ({
               value={value}
               ref={register}
               aria-describedby={hint && `${name}-hint`}
+              disabled={option.disabled}
               {...otherProps}
             />
             <label
