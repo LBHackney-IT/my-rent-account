@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Router from "next/router";
 import sub from "date-fns/sub";
 import isBefore from "date-fns/isBefore";
 
@@ -26,9 +25,6 @@ const TransactionHistoryPage = ({ transactions }) => {
   const filteredTranactions = transactions.filter(
     (transaction) => !isBefore(new Date(transaction.date), filterDate)
   );
-  Router.events.on("routeChangeComplete", () => {
-    window.scrollTo(0, 0);
-  });
   return (
     <div>
       <h1>Transaction History</h1>

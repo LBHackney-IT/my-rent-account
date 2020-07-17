@@ -54,6 +54,11 @@ const transactionsTable = ({ transactions }) => (
         ))}
       </tbody>
     </table>
+    {transactions.length === 0 && (
+      <div className="govuk-body">
+        No transactions to show for the selected period
+      </div>
+    )}
   </div>
 );
 

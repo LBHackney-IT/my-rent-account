@@ -6,6 +6,7 @@ import { getSession } from "lib/session";
 
 import { getAccountDetails } from "lib/api/accounts";
 import { Button, Radios, TextInput } from "components/Form";
+import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 
 const AnotherAmountRadio = ({ errors, register }) => (
   <>
@@ -33,7 +34,7 @@ AnotherAmountRadio.propTypes = {
   }),
 };
 
-const Account = ({ currentBalance, accountNumber }) => {
+const Account = ({ currentBalance, hasArrears, accountNumber }) => {
   const { register, errors, handleSubmit, setError } = useForm({
     defaultValues: { paymentType: `current` },
   });
@@ -52,7 +53,9 @@ const Account = ({ currentBalance, accountNumber }) => {
           accountNumber,
           amount:
             formData.paymentType === "current"
-              ? currentBalance
+              ? hasArrears
+                ? currentBalance
+                : 0
               : formData.toPay,
         },
       });
@@ -68,7 +71,7 @@ const Account = ({ currentBalance, accountNumber }) => {
           options={[
             {
               value: "current",
-              label: `Pay Current Balance £${currentBalance}`,
+              label: `Pay Current Balance £${hasArrears ? currentBalance : 0}`,
             },
             {
               value: "custom",
@@ -84,6 +87,8 @@ const Account = ({ currentBalance, accountNumber }) => {
           <Button text="Make a Payment" type="submit" />
         </div>
       </form>
+      <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+      <UsefulLinks />
     </div>
   );
 };
@@ -91,6 +96,7 @@ const Account = ({ currentBalance, accountNumber }) => {
 Account.propTypes = {
   name: PropTypes.string.isRequired,
   currentBalance: PropTypes.string.isRequired,
+  hasArrears: PropTypes.bool.isRequired,
   accountNumber: PropTypes.string.isRequired,
 };
 
