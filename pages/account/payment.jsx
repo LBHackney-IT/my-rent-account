@@ -17,6 +17,10 @@ const AnotherAmountRadio = ({ errors, register }) => (
       inputClassName="govuk-input--width-10"
       inputMode="numeric"
       register={register({
+        validate: {
+          positive: (value) =>
+            parseInt(value, 10) > 0 || "Amount must be bigger than 0",
+        },
         pattern: {
           value: /^[0-9]+$/,
           message: "Account Number must be a number",
