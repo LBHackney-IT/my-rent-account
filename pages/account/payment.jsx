@@ -36,7 +36,7 @@ AnotherAmountRadio.propTypes = {
 
 const Account = ({ currentBalance, hasArrears, accountNumber }) => {
   const { register, errors, handleSubmit, setError } = useForm({
-    defaultValues: { paymentType: `current` },
+    defaultValues: { paymentType: hasArrears ? "current" : "custom" },
   });
   const onSubmit = async (formData) => {
     if (
@@ -53,9 +53,7 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
           accountNumber,
           amount:
             formData.paymentType === "current"
-              ? hasArrears
-                ? currentBalance
-                : 0
+              ? currentBalance
               : formData.toPay,
         },
       });
@@ -71,7 +69,8 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
           options={[
             {
               value: "current",
-              label: `Pay Current Balance £${hasArrears ? currentBalance : 0}`,
+              label: `Pay Current Balance £${currentBalance}`,
+              disabled: !hasArrears,
             },
             {
               value: "custom",
