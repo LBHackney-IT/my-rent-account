@@ -6,6 +6,7 @@ import { getSession } from "lib/session";
 
 import { getAccountDetails } from "lib/api/accounts";
 import { Button, Radios, TextInput } from "components/Form";
+import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 
 const AnotherAmountRadio = ({ errors, register }) => (
   <>
@@ -86,6 +87,8 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
           <Button text="Make a Payment" type="submit" />
         </div>
       </form>
+      <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+      <UsefulLinks />
     </div>
   );
 };
