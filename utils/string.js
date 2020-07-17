@@ -5,3 +5,10 @@ export const getPrivacyString = (string) =>
     .join(" ");
 
 export const getProperCurrency = (string) => string && string.replace("¤", "£");
+
+const MATCH_PARENTHESES = new RegExp(/\(([^)]+)\)/);
+
+export const getProperValue = (string) => {
+  const value = string.match(MATCH_PARENTHESES);
+  return value ? `-${value[1]}` : string;
+};
