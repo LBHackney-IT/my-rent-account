@@ -13,7 +13,7 @@ import RentBreakdown from "components/RentBreakdown/RentBreakdown";
 import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 import { Button } from "components/Form";
 import NotLoggedBox from "components/NotLoggedBox/NotLoggedBox";
-import { getSession, setSession } from "lib/session";
+import { getSession, setSession, deleteSession } from "lib/session";
 
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
@@ -52,7 +52,7 @@ const Account = ({
                   `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
                 );
                 setSession({ cssoId });
-                Router.push("/link-account");
+                Router.push("/link-account?unlinkSuccess=true");
               },
               text: "unlink account",
             },
@@ -163,19 +163,30 @@ Account.propTypes = {
 export default Account;
 
 export const getServerSideProps = async (ctx) => {
-  const account = getSession(ctx);
-  const isWithPrivacy = Boolean(!account.cssoId);
-  const accountDetails = await getAccountDetails(account, isWithPrivacy);
-  const transactions = await getTransactions({ ...account, ...accountDetails });
-  const queryString = `?grant_type=authorization_code&client_id=${CSSO_ID}&client_secret=${CSSO_SECRET}&scope=openid%20email&response_type=code&redirect_uri=https://${URL_PREFIX}/auth`;
-  return {
-    props: {
-      ...accountDetails,
+  try {
+    const account = getSession(ctx);
+    const isWithPrivacy = Boolean(!account.cssoId);
+    const accountDetails = await getAccountDetails(account, isWithPrivacy);
+    const transactions = await getTransactions({
       ...account,
-      transactions: transactions.slice(0, 3),
-      isWithPrivacy,
-      registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
-      loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
-    },
+      ...accountDetails,
+    });
+    const queryString = `?grant_type=authorization_code&client_id=${CSSO_ID}&client_secret=${CSSO_SECRET}&scope=openid%20email&response_type=code&redirect_uri=https://${URL_PREFIX}/auth`;
+    return {
+      props: {
+        ...accountDetails,
+        ...account,
+        transactions: transactions.slice(0, 3),
+        isWithPrivacy,
+        registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
+        loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
+      },
+    };
+  } catch (e) {
+    console.log("Account Error ", e);
+    deleteSession(ctx);
+  }
+  return {
+    props: {},
   };
 };
