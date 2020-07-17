@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import Router from "next/router";
+import sub from "date-fns/sub";
+import isBefore from "date-fns/isBefore";
 
 import { getSession } from "lib/session";
 import { getTransactions } from "lib/api/transactions";
 import TransactionsTable from "components/TransactionsTable/TransactionsTable";
+import { Select } from "components/Form";
+
+const OPTIONS = Array.apply(null, { length: 12 }).map((x, i) => {
+  const months = i + 1;
+  return {
+    value: months,
+    text: months === 1 ? "Last Month" : `Last ${months} Months`,
+  };
+});
+
+const today = new Date();
 
 const TransactionHistoryPage = ({ transactions }) => {
+  const [filter, setFilter] = useState(1);
+  const filterDate = sub(today, {
+    months: filter,
+  });
+  const filteredTranactions = transactions.filter(
+    (transaction) => !isBefore(new Date(transaction.date), filterDate)
+  );
   Router.events.on("routeChangeComplete", () => {
     window.scrollTo(0, 0);
   });
@@ -17,7 +37,14 @@ const TransactionHistoryPage = ({ transactions }) => {
         be correct on a Sunday. We are working to resolve this issue and
         apologise for the inconvenience this may cause.
       </p>
-      <TransactionsTable transactions={transactions} />
+      <Select
+        options={OPTIONS}
+        onChange={setFilter}
+        label="Show transactions from:"
+        name="filter"
+        value={filter}
+      />
+      <TransactionsTable transactions={filteredTranactions} />
     </div>
   );
 };
