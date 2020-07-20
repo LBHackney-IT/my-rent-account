@@ -15,7 +15,7 @@ exports[`RentBreakdown component should render properly 1`] = `
           class="govuk-table__header"
           scope="row"
         >
-          Your Rent:
+          Your rent:
         </th>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
@@ -30,7 +30,7 @@ exports[`RentBreakdown component should render properly 1`] = `
           class="govuk-table__header"
           scope="row"
         >
-          Housing Benefit Payment:
+          Housing benefit payment:
         </th>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
@@ -45,7 +45,7 @@ exports[`RentBreakdown component should render properly 1`] = `
           class="govuk-table__header"
           scope="row"
         >
-          What you Pay:
+          What you pay:
         </th>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"

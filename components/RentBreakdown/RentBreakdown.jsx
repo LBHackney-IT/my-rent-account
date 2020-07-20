@@ -4,15 +4,15 @@ import PropTypes from "prop-types";
 const RentBreakdown = ({ rent, benefits, toPay }) => {
   const breakdown = [
     {
-      title: "Your Rent:",
+      title: "Your rent:",
       value: rent,
     },
     {
-      title: "Housing Benefit Payment:",
+      title: "Housing benefit payment:",
       value: benefits,
     },
     {
-      title: "What you Pay:",
+      title: "What you pay:",
       value: toPay,
     },
   ];

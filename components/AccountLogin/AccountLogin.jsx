@@ -41,7 +41,7 @@ const AccountLogin = ({ onSubmit, onAsyncSubmit, submitText }) => {
   return (
     <form onSubmit={handleSubmit(onLogin)}>
       <TextInput
-        label="Rent Account Number:"
+        label="Rent account number:"
         hint="You will find this on your rent card or statement"
         name="accountNumber"
         placeholder="e.g. 1234567890"
@@ -49,7 +49,7 @@ const AccountLogin = ({ onSubmit, onAsyncSubmit, submitText }) => {
         inputMode="numeric"
         error={errors.accountNumber}
         register={register({
-          required: "Rent Account Number is required",
+          required: "Rent account number is required",
           minLength: {
             value: 10,
             message: "You are missing some digits in the rent account number",
@@ -61,13 +61,13 @@ const AccountLogin = ({ onSubmit, onAsyncSubmit, submitText }) => {
         })}
       />
       <TextInput
-        label="Post Code:"
+        label="Post code:"
         name="postcode"
         placeholder="e.g. E8 1EA"
         inputClassName="govuk-input--width-10"
         error={errors.postcode}
         register={register({
-          required: "Post Code is required",
+          required: "Post code is required",
           validate: (value) =>
             isPostcodeValid(value) || "You need a valid post code",
         })}

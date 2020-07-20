@@ -24,7 +24,7 @@ const transactionsTable = ({ transactions }) => (
             scope="col"
             className="govuk-table__header govuk-table__header--numeric"
           >
-            Paid In
+            Paid in
           </th>
           <th
             scope="col"

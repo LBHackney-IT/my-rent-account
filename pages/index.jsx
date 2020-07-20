@@ -9,7 +9,7 @@ const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 export default function Home({ loginUrl, registerUrl }) {
   return (
     <div>
-      <h1>My Rent Account</h1>
+      <h1>My rent account</h1>
       <p className="govuk-body">
         To view your rent account balance and make a payment, please enter your
         rent account number and post code in the boxes below.

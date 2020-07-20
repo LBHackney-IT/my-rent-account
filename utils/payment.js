@@ -1,8 +1,8 @@
 export const getTransactionType = (code) => {
   switch (code) {
     case "09":
-      return "Visa Card";
+      return "Visa card";
     default:
-      return `(${code}) Other Payment Type`;
+      return `(${code}) other payment type`;
   }
 };

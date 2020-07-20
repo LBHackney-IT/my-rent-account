@@ -34,9 +34,9 @@ const Account = ({
 }) => {
   return (
     <div>
-      <h1>My Rent Account</h1>
+      <h1>My rent account</h1>
       <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-      <h2>Account Details</h2>
+      <h2>Account details</h2>
       <SummaryList
         list={[
           {
@@ -44,7 +44,7 @@ const Account = ({
             value: name,
           },
           {
-            title: "Rent Account:",
+            title: "Rent account:",
             value: accountNumber,
             cta: !isWithPrivacy && {
               onClick: async () => {
@@ -61,17 +61,17 @@ const Account = ({
       />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <h2>Balance and Transactions</h2>
+          <h2>Balance and transactions</h2>
           <div
             className={cx(
               "govuk-panel",
               hasArrears ? "govuk-panel--error" : "govuk-panel--confirmation"
             )}
           >
-            <h3 className="govuk-panel__title">Current Balance:</h3>
+            <h3 className="govuk-panel__title">Current balance:</h3>
             <div className="govuk-panel__body">
               <strong>£{currentBalance}</strong> (
-              {hasArrears ? "Arrears" : "Credit"})
+              {hasArrears ? "arrears" : "credit"})
             </div>
           </div>
           <div style={{ textAlign: "center" }}>
@@ -100,12 +100,12 @@ const Account = ({
             style={{ textAlign: "center" }}
             onClick={() => Router.push("/account/payment")}
           >
-            <Button text="Make a Payment" />
+            <Button text="Make a payment" />
           </div>
           {transactions && (
             <>
               <p className="govuk-body">
-                <strong>Recent Transaction and Statements:</strong>
+                <strong>Recent transaction and statements:</strong>
               </p>
               {isWithPrivacy ? (
                 <NotLoggedBox loginUrl={loginUrl} registerUrl={registerUrl} />
@@ -122,7 +122,7 @@ const Account = ({
                     style={{ textAlign: "center" }}
                     onClick={() => Router.push("/account/transaction-history")}
                   >
-                    <Button text="View Rent Statements" />
+                    <Button text="View rent statements" />
                   </div>
                 </>
               )}
@@ -130,7 +130,7 @@ const Account = ({
           )}
         </div>
         <div className="govuk-grid-column-one-third">
-          <h2>Rent Breakdown</h2>
+          <h2>Rent breakdown</h2>
           {isWithPrivacy ? (
             <NotLoggedBox loginUrl={loginUrl} registerUrl={registerUrl} />
           ) : (

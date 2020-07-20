@@ -9,7 +9,7 @@ exports[`Layout component should render properly 1`] = `
     Skip to main content
   </a>
   <header
-    servicename="My Rent Account"
+    servicename="My rent account"
   />
   <div
     class="govuk-width-container app-width-container"

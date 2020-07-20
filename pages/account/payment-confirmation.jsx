@@ -27,7 +27,7 @@ const PaymentConfirmation = ({
         )}
       >
         <h1 className="govuk-panel__title">
-          Payment {isPaymentSuccessful ? "Received" : "Failed"}
+          Payment {isPaymentSuccessful ? "received" : "failed"}
         </h1>
         {isPaymentSuccessful && (
           <div className="govuk-panel__body">{payed}</div>
@@ -40,19 +40,19 @@ const PaymentConfirmation = ({
             <strong>{accountNumber}</strong>.
           </div>
           <div className="govuk-!-margin-top-7">
-            <h2>Payment Details:</h2>
+            <h2>Payment details:</h2>
             <SummaryList
               list={[
                 {
-                  title: "Payment Date",
+                  title: "Payment date",
                   value: getNiceFormatDate(date),
                 },
                 {
-                  title: "Rent Account:",
+                  title: "Rent account:",
                   value: accountNumber,
                 },
                 {
-                  title: "Payment Amount:",
+                  title: "Payment amount:",
                   value: payed,
                 },
                 {

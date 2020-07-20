@@ -11,7 +11,7 @@ const OPTIONS = Array.apply(null, { length: 12 }).map((x, i) => {
   const months = i + 1;
   return {
     value: months,
-    text: months === 1 ? "Last Month" : `Last ${months} Months`,
+    text: months === 1 ? "Last month" : `Last ${months} months`,
   };
 });
 
@@ -27,7 +27,7 @@ const TransactionHistoryPage = ({ transactions }) => {
   );
   return (
     <div>
-      <h1>Transaction History</h1>
+      <h1>Transaction history</h1>
       <p className="govuk-body">
         Due to end of week processing, your current and running balances may not
         be correct on a Sunday. We are working to resolve this issue and
