@@ -36,7 +36,7 @@ exports[`TransactionsTable component should render properly 1`] = `
             class="govuk-table__header govuk-table__header--numeric"
             scope="col"
           >
-            Paid In
+            Paid in
           </th>
           <th
             class="govuk-table__header govuk-table__header--numeric"

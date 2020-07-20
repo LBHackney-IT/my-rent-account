@@ -10,7 +10,7 @@ exports[`AccountLogin component should render properly 1`] = `
         class="govuk-label govuk-label--m"
         for="accountNumber"
       >
-        Rent Account Number:
+        Rent account number:
       </label>
       <span
         class="govuk-hint"
@@ -36,7 +36,7 @@ exports[`AccountLogin component should render properly 1`] = `
         class="govuk-label govuk-label--m"
         for="postcode"
       >
-        Post Code:
+        Post code:
       </label>
       <input
         class="govuk-input govuk-input--width-10"

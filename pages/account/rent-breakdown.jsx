@@ -10,7 +10,7 @@ import { getAccountDetails } from "lib/api/accounts";
 const Account = ({ items }) => {
   return (
     <div>
-      <h1>Rent Breakdown</h1>
+      <h1>Rent breakdown</h1>
       <SummaryList
         list={items.map(({ description, value }) => ({
           title: description,

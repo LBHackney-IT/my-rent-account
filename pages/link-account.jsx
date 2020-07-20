@@ -17,7 +17,7 @@ const LinkAccount = ({ cssoId }) => {
           Your old rent account has been unlinked successfully
         </WarningText>
       )}
-      <h1>Link Rent Account</h1>
+      <h1>Link rent account</h1>
       <div className="govuk-body govuk-!-margin-bottom-9">
         <p>
           For security reasons you need to add your rent account details to your
@@ -37,7 +37,7 @@ const LinkAccount = ({ cssoId }) => {
           });
           updateSession(params);
         }}
-        submitText="Link your Rent Account"
+        submitText="Link your rent account"
       />
       <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
       <UsefulLinks />

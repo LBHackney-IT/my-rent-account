@@ -10,7 +10,7 @@ import UsefulLinks from "components/UsefulLinks/UsefulLinks";
 
 const AnotherAmountRadio = ({ errors, register }) => (
   <>
-    Pay Another Amount
+    Pay another amount
     <TextInput
       name="toPay"
       placeholder="£ 0"
@@ -67,13 +67,13 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
   return (
     <div>
       <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-      <h1>Make a Payment</h1>
+      <h1>Make a payment</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Radios
           options={[
             {
               value: "current",
-              label: `Pay Current Balance £${currentBalance}`,
+              label: `Pay current balance £${currentBalance}`,
               disabled: !hasArrears,
             },
             {
@@ -87,7 +87,7 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
           error={errors.paymentType}
         />
         <div style={{ textAlign: "center" }}>
-          <Button text="Make a Payment" type="submit" />
+          <Button text="Make a payment" type="submit" />
         </div>
       </form>
       <hr className="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
