@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+ 
 import { deleteSession, getAdminSession } from "lib/session";
 
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
@@ -8,9 +8,7 @@ export default function AdminHome() {
   return (
     <div>
       <h1>Admin Home Page</h1>
-      
       <AdminNavBar />
-
     </div>
   );
 }
@@ -26,9 +24,8 @@ export const getServerSideProps = async (ctx) => {
     return deleteSession(ctx);
   }
 
-  
   getAdminSession(ctx, true);
-  
+
   return {
     props: {
 

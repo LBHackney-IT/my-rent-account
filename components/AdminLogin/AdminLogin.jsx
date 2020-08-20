@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const AdminLogin = ({ submitText, gssoUrl }) => {
-  
   return (
     <div>
       <a 
@@ -10,8 +10,12 @@ const AdminLogin = ({ submitText, gssoUrl }) => {
         {submitText}
         </a>
     </div>
-    
   );
+};
+
+AdminLogin.propTypes = {
+  gssoUrl: PropTypes.string.isRequired,
+  submitText: PropTypes.string.isRequired,
 };
 
 export default AdminLogin;
