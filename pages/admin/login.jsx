@@ -12,10 +12,13 @@ export default function AdminLoginPage({ gssoUrl, returnUrl }) {
         This page is to log in to service team member accounts.
       </p>
 
-      <AdminLogin onSubmit={getAdminSession} submitText="Login" gssoUrl={`${gssoUrl}${returnUrl}`}/>
+      <AdminLogin 
+        onSubmit={getAdminSession} 
+        submitText="Login" 
+        gssoUrl={`${gssoUrl}${returnUrl}`}/>
 
       <p className="govuk-body">
-          Please contact your administrator if you have issues logging in.
+        Please contact your administrator if you have issues logging in.
       </p>
     </div>
   );
@@ -43,6 +46,6 @@ export const getServerSideProps = async (ctx) => {
     props: {
       gssoUrl: GSSO_URL,
       returnUrl: `${host}/admin`
-    },
+    }
   };
 };

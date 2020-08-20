@@ -27,7 +27,7 @@ export const getServerSideProps = async (ctx) => {
   }
 
   
-  const account = getAdminSession(ctx, true);
+  getAdminSession(ctx, true);
   
   return {
     props: {

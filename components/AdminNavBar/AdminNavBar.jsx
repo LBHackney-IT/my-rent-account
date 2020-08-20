@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import styles from './AdminNavBar.module.scss';
+import styles from "./AdminNavBar.module.scss";
 
 export default function AdminNavBar() {
   return (
@@ -25,11 +24,8 @@ export default function AdminNavBar() {
   );
 }
 
-AdminNavBar.propTypes = {
-  
-};
 
-export const getServerSideProps = async (ctx) => {
+export const getServerSideProps = async () => {
 
   return {
     props: {
