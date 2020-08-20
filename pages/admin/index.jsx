@@ -1,6 +1,6 @@
 import React from "react";
 
-import { deleteAdminSession, checkIsAdmin } from "lib/admin-session";
+import { checkIsAdmin } from "lib/admin-session";
 
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 
