@@ -41,7 +41,7 @@ export const getServerSideProps = async (ctx) => {
     });
     ctx.res.end();
   }
-  
+
   return {
     props: {
       gssoUrl: GSSO_URL,

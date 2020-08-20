@@ -6,16 +6,24 @@ export default function AdminNavBar() {
     <div>
       <ul className={styles.AdminNavBar}>
         <li>
-            <a href="/admin" className="govuk-link">Home</a>
+          <a href="/admin" className="govuk-link">
+            Home
+          </a>
         </li>
         <li>
-            <a href="/admin" className="govuk-link">Manage Users</a>
+          <a href="/admin" className="govuk-link">
+            Manage Users
+          </a>
         </li>
         <li>
-            <a href="/admin" className="govuk-link">My Account</a>
+          <a href="/admin" className="govuk-link">
+            My Account
+          </a>
         </li>
         <li>
-            <a href="/logout" className="govuk-link">Logout</a>
+          <a href="/logout" className="govuk-link">
+            Logout
+          </a>
         </li>
       </ul>
     </div>
@@ -24,8 +32,6 @@ export default function AdminNavBar() {
 
 export const getServerSideProps = async () => {
   return {
-    props: {
-      
-    },
+    props: {},
   };
 };

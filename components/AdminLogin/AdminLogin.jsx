@@ -4,11 +4,9 @@ import PropTypes from "prop-types";
 const AdminLogin = ({ submitText, gssoUrl }) => {
   return (
     <div>
-      <a 
-        className="govuk-button"
-        href={gssoUrl}>
+      <a className="govuk-button" href={gssoUrl}>
         {submitText}
-        </a>
+      </a>
     </div>
   );
 };
