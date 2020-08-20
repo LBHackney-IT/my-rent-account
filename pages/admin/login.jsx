@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { checkIsAdmin } from "lib/session";
+import { checkIsAdmin } from "lib/admin-session";
 
 import AdminLogin from "components/AdminLogin/AdminLogin";
 

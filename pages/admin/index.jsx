@@ -1,6 +1,6 @@
 import React from "react";
 
-import { deleteSession, checkIsAdmin } from "lib/session";
+import { deleteAdminSession, checkIsAdmin } from "lib/admin-session";
 
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 
@@ -16,12 +16,6 @@ export default function AdminHome() {
 AdminHome.propTypes = {};
 
 export const getServerSideProps = async (ctx) => {
-  const logout = ctx.query && ctx.query.logout;
-
-  if (logout) {
-    return deleteSession(ctx);
-  }
-
   checkIsAdmin(ctx, true);
 
   return {

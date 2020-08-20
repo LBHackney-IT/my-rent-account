@@ -21,7 +21,7 @@ export default function AdminNavBar() {
           </a>
         </li>
         <li>
-          <a href="/logout" className="govuk-link">
+          <a href="/admin/logout" className="govuk-link">
             Logout
           </a>
         </li>
