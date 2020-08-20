@@ -1,6 +1,6 @@
 import React from "react";
 
-import { deleteSession, getAdminSession } from "lib/session";
+import { deleteSession, checkIsAdmin } from "lib/session";
 
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 
@@ -22,7 +22,7 @@ export const getServerSideProps = async (ctx) => {
     return deleteSession(ctx);
   }
 
-  getAdminSession(ctx, true);
+  checkIsAdmin(ctx, true);
 
   return {
     props: {},
