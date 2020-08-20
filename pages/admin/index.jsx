@@ -16,7 +16,7 @@ export default function AdminHome() {
 AdminHome.propTypes = {};
 
 export const getServerSideProps = async (ctx) => {
-  checkIsAdmin(ctx, true);
+  checkIsAdmin(ctx);
 
   return {
     props: {},
