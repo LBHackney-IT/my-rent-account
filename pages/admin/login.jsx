@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getAdminSession } from "lib/session";
+import { checkIsAdmin } from "lib/session";
 
 import AdminLogin from "components/AdminLogin/AdminLogin";
 
@@ -12,11 +12,7 @@ export default function AdminLoginPage({ gssoUrl, returnUrl }) {
         This page is to log in to service team member accounts.
       </p>
 
-      <AdminLogin
-        onSubmit={getAdminSession}
-        submitText="Login"
-        gssoUrl={`${gssoUrl}${returnUrl}`}
-      />
+      <AdminLogin submitText="Login" gssoUrl={`${gssoUrl}${returnUrl}`} />
 
       <p className="govuk-body">
         Please contact your administrator if you have issues logging in.
@@ -33,7 +29,7 @@ AdminLoginPage.propTypes = {
 export const getServerSideProps = async (ctx) => {
   const { GSSO_URL } = process.env;
   const host = ctx.req.headers.host;
-  const account = getAdminSession(ctx, false);
+  const account = checkIsAdmin(ctx, false);
 
   if (account && account.isAdmin) {
     ctx.res.writeHead(302, {
