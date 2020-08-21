@@ -30,15 +30,9 @@ AdminLoginPage.propTypes = {
 export const getServerSideProps = async (ctx) => {
   const { GSSO_URL } = process.env;
   const baseUrl = ctx.req.headers.host;
-  const account = checkIsAdmin(ctx, false);
   const protocol = getProtocol();
 
-  if (account && account.isAdmin) {
-    ctx.res.writeHead(302, {
-      Location: "/admin",
-    });
-    ctx.res.end();
-  }
+  checkIsAdmin(ctx, false);
 
   return {
     props: {
