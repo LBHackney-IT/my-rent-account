@@ -1,7 +1,5 @@
 import React from "react";
-
 import { checkIsAdmin } from "lib/admin-session";
-
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 
 export default function AdminHome() {
