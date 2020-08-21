@@ -4,7 +4,7 @@ import { checkIsAdmin } from "lib/admin-session";
 import { getProtocol } from "lib/urls";
 import AdminLogin from "components/AdminLogin/AdminLogin";
 
-export default function AdminLoginPage({ gssoUrl, returnUrl }) {
+export default function AdminLoginPage({ protocol, gssoUrl, returnUrl }) {
   return (
     <div>
       <h1>Login to My Rent Account</h1>
@@ -12,6 +12,11 @@ export default function AdminLoginPage({ gssoUrl, returnUrl }) {
       <p className="govuk-body">
         This page is to log in to service team member accounts.
       </p>
+
+      <p>Protocol: {protocol}</p>
+      <p>GSSO Url: {gssoUrl}</p>
+
+      <p>Return Url: {returnUrl}</p>
 
       <AdminLogin submitText="Login" gssoUrl={`${gssoUrl}${returnUrl}`} />
 
@@ -23,6 +28,7 @@ export default function AdminLoginPage({ gssoUrl, returnUrl }) {
 }
 
 AdminLoginPage.propTypes = {
+  protocol: PropTypes.string.isRequired,
   gssoUrl: PropTypes.string.isRequired,
   returnUrl: PropTypes.string.isRequired,
 };
@@ -36,6 +42,7 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
+      protocol: protocol,
       gssoUrl: GSSO_URL,
       returnUrl: `${protocol}://${baseUrl}/admin/login`,
     },
