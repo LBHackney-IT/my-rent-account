@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { checkGSSO, redirectToAdminHome } from "lib/admin-session";
+import { getProtocol } from "lib/urls";
 import AdminLogin from "components/AdminLogin/AdminLogin";
 
 export default function AdminLoginPage({ gssoUrl, returnUrl }) {
@@ -28,6 +29,7 @@ AdminLoginPage.propTypes = {
 
 export const getServerSideProps = async (ctx) => {
   const { GSSO_URL, URL_PREFIX } = process.env;
+  const protocol = getProtocol();
 
   const account = checkGSSO(ctx);
 
@@ -38,7 +40,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       gssoUrl: GSSO_URL,
-      returnUrl: `${URL_PREFIX}/admin/login`,
+      returnUrl: `${protocol}://${URL_PREFIX}/admin/login`,
     },
   };
 };
