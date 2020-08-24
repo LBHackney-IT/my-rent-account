@@ -1,10 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { checkIsAdmin } from "lib/admin-session";
 import { getProtocol } from "lib/urls";
+import { checkGSSO, redirectToAdminHome } from "lib/admin-session";
 import AdminLogin from "components/AdminLogin/AdminLogin";
 
-export default function AdminLoginPage({ protocol, gssoUrl, returnUrl }) {
+export default function AdminLoginPage({ req, protocol, gssoUrl, returnUrl }) {
+  console.log(`
+  Protocol: ${protocol}
+  GSSO Url: ${gssoUrl}
+  Return Url: ${returnUrl}
+
+  `);
+
+  console.log(req);
+
   return (
     <div>
       <h1>Login to My Rent Account</h1>
@@ -12,11 +21,6 @@ export default function AdminLoginPage({ protocol, gssoUrl, returnUrl }) {
       <p className="govuk-body">
         This page is to log in to service team member accounts.
       </p>
-
-      <p>Protocol: {protocol}</p>
-      <p>GSSO Url: {gssoUrl}</p>
-
-      <p>Return Url: {returnUrl}</p>
 
       <AdminLogin submitText="Login" gssoUrl={`${gssoUrl}${returnUrl}`} />
 
@@ -28,6 +32,7 @@ export default function AdminLoginPage({ protocol, gssoUrl, returnUrl }) {
 }
 
 AdminLoginPage.propTypes = {
+  req: PropTypes.string.isRequired,
   protocol: PropTypes.string.isRequired,
   gssoUrl: PropTypes.string.isRequired,
   returnUrl: PropTypes.string.isRequired,
@@ -38,10 +43,15 @@ export const getServerSideProps = async (ctx) => {
   const baseUrl = ctx.req.headers.host;
   const protocol = getProtocol();
 
-  checkIsAdmin(ctx, false);
+  const account = checkGSSO(ctx);
+
+  if (account && account.isAdmin) {
+    redirectToAdminHome(ctx);
+  }
 
   return {
     props: {
+      req: JSON.stringify(ctx.req.headers),
       protocol: protocol,
       gssoUrl: GSSO_URL,
       returnUrl: `${protocol}://${baseUrl}/admin/login`,
