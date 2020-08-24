@@ -48,6 +48,10 @@ functions:
       CSSO_SECRET: ${env:CSSO_SECRET}
       CSSO_DOMAIN: ${env:CSSO_DOMAIN}
       GA_TAG: ${env:GA_TAG}
+      GSSO_URL: ${env:GSSO_URL}
+      GSSO_TOKEN_NAME: ${env:GSSO_TOKEN_NAME}
+      HACKNEY_JWT_SECRET: ${env:HACKNEY_JWT_SECRET}
+      ADMIN_USER_GROUP: ${env:ADMIN_USER_GROUP}
 
 resources:
   Resources:
