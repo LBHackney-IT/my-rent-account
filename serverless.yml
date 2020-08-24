@@ -47,7 +47,7 @@ functions:
       CSSO_ID: ${env:CSSO_ID}
       CSSO_SECRET: ${env:CSSO_SECRET}
       CSSO_DOMAIN: ${env:CSSO_DOMAIN}
-      GA_TAG: ${env:GA_TAGGA_TAG}
+      GA_TAG: ${env:GA_TAG}
 
 resources:
   Resources:
