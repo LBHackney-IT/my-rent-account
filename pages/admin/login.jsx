@@ -1,19 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getProtocol } from "lib/urls";
 import { checkGSSO, redirectToAdminHome } from "lib/admin-session";
 import AdminLogin from "components/AdminLogin/AdminLogin";
 
-export default function AdminLoginPage({ req, protocol, gssoUrl, returnUrl }) {
-  console.log(`
-  Protocol: ${protocol}
-  GSSO Url: ${gssoUrl}
-  Return Url: ${returnUrl}
-
-  `);
-
-  console.log(req);
-
+export default function AdminLoginPage({ gssoUrl, returnUrl }) {
   return (
     <div>
       <h1>Login to My Rent Account</h1>
@@ -32,16 +22,12 @@ export default function AdminLoginPage({ req, protocol, gssoUrl, returnUrl }) {
 }
 
 AdminLoginPage.propTypes = {
-  req: PropTypes.string.isRequired,
-  protocol: PropTypes.string.isRequired,
   gssoUrl: PropTypes.string.isRequired,
   returnUrl: PropTypes.string.isRequired,
 };
 
 export const getServerSideProps = async (ctx) => {
-  const { GSSO_URL } = process.env;
-  const baseUrl = ctx.req.headers.host;
-  const protocol = getProtocol();
+  const { GSSO_URL, URL_PREFIX } = process.env;
 
   const account = checkGSSO(ctx);
 
@@ -51,10 +37,8 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      req: JSON.stringify(ctx.req.headers),
-      protocol: protocol,
       gssoUrl: GSSO_URL,
-      returnUrl: `${protocol}://${baseUrl}/admin/login`,
+      returnUrl: `${URL_PREFIX}/admin/login`,
     },
   };
 };
