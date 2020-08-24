@@ -32,6 +32,7 @@ export default function AdminLoginPage({ req, protocol, gssoUrl, returnUrl }) {
 }
 
 AdminLoginPage.propTypes = {
+  req: PropTypes.string.isRequired,
   protocol: PropTypes.string.isRequired,
   gssoUrl: PropTypes.string.isRequired,
   returnUrl: PropTypes.string.isRequired,
