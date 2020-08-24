@@ -1,5 +1,5 @@
 import React from "react";
-import { checkIsAdmin } from "lib/admin-session";
+import { checkIsAdmin, redirectToAdminLogin } from "lib/admin-session";
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 
 export default function AdminHome() {
@@ -14,7 +14,11 @@ export default function AdminHome() {
 AdminHome.propTypes = {};
 
 export const getServerSideProps = async (ctx) => {
-  checkIsAdmin(ctx);
+  const isAdmin = checkIsAdmin(ctx);
+
+  if (!isAdmin) {
+    redirectToAdminLogin(ctx);
+  }
 
   return {
     props: {},
