@@ -5,10 +5,10 @@ import { useForm } from "react-hook-form";
 import Router from "next/router";
 import isPostcodeValid from "uk-postcode-validator";
 
-import { Button, TextInput } from "components/Form";
+import { Button, TextInput, Checkboxes } from "components/Form";
 import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
-const AccountLogin = ({ onSubmit, onAsyncSubmit, submitText }) => {
+const AccountLogin = ({ isAdmin, onSubmit, onAsyncSubmit, submitText }) => {
   const [submitting, setSubmitting] = useState();
   const { register, errors, handleSubmit } = useForm();
   const [error, setError] = useState();
@@ -72,6 +72,18 @@ const AccountLogin = ({ onSubmit, onAsyncSubmit, submitText }) => {
             isPostcodeValid(value) || "You need a valid post code",
         })}
       />
+      {isAdmin && (
+        <Checkboxes
+          options={[
+            {
+              value: "csso",
+              label: "Simulate CSSO",
+            },
+          ]}
+          name="simulateCSSO"
+          register={register}
+        />
+      )}
       <Button text={submitText} disabled={submitting} />
       {error && <ErrorMessage text={error} />}
     </form>
@@ -79,6 +91,7 @@ const AccountLogin = ({ onSubmit, onAsyncSubmit, submitText }) => {
 };
 
 AccountLogin.propTypes = {
+  isAdmin: PropTypes.bool,
   onSubmit: PropTypes.func,
   onAsyncSubmit: PropTypes.func,
   submitText: PropTypes.string.isRequired,
