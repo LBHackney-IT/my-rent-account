@@ -51,9 +51,10 @@ Home.propTypes = {
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx, false);
-  if (account) {
+  if (account && !account.isAdmin) {
     ctx.res.writeHead(302, {
-      Location: account.accountNumber ? "/account" : "/link-account",
+      Location:
+        account.accountNumber || account.isAdmin ? "/account" : "/link-account",
     });
     ctx.res.end();
   }
