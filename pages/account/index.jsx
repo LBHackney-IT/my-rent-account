@@ -148,7 +148,7 @@ Account.propTypes = {
   name: PropTypes.string.isRequired,
   currentBalance: PropTypes.string.isRequired,
   accountNumber: PropTypes.string.isRequired,
-  cssoId: PropTypes.string.isRequired,
+  cssoId: PropTypes.string,
   hasArrears: PropTypes.bool.isRequired,
   toPay: PropTypes.string.isRequired,
   rent: PropTypes.number.isRequired,
@@ -165,7 +165,9 @@ export default Account;
 export const getServerSideProps = async (ctx) => {
   try {
     const account = getSession(ctx);
-    const isWithPrivacy = Boolean(!account.cssoId);
+    const isWithPrivacy = Boolean(
+      !(account && account.isAdmin && account.simulateCSSO) || !account.cssoId
+    );
     const accountDetails = await getAccountDetails(account, isWithPrivacy);
     const transactions = await getTransactions({
       ...account,
