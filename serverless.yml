@@ -52,6 +52,8 @@ functions:
       GSSO_TOKEN_NAME: ${env:GSSO_TOKEN_NAME}
       HACKNEY_JWT_SECRET: ${env:HACKNEY_JWT_SECRET}
       ADMIN_USER_GROUP: ${env:ADMIN_USER_GROUP}
+      ADMIN_AUDIT_API_URL: ${env.ADMIN_AUDIT_API_URL}
+      ADMIN_AUDIT_API_KEY: ${env.ADMIN_AUDIT_API_KEY}
 
 resources:
   Resources:
