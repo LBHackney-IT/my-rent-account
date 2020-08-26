@@ -4,7 +4,6 @@ export default async (req, res) => {
   switch (req.method) {
     case "POST":
       try {
-        console.log("pages/api/adminaudit.js");
         const body = req.body;
 
         const adminAuditParams = {
