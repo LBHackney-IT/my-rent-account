@@ -6,7 +6,7 @@ import AccountLogin from "components/AccountLogin/AccountLogin";
 
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
-export default function Home({ isAdmin, loginUrl, registerUrl }) {
+export default function Home({ isAdmin, adminEmail, loginUrl, registerUrl }) {
   return (
     <div>
       <h1>My rent account</h1>
@@ -16,6 +16,7 @@ export default function Home({ isAdmin, loginUrl, registerUrl }) {
       </p>
       <AccountLogin
         isAdmin={isAdmin}
+        adminEmail={adminEmail}
         onSubmit={updateSession}
         submitText="View account"
       />
@@ -50,6 +51,7 @@ export default function Home({ isAdmin, loginUrl, registerUrl }) {
 
 Home.propTypes = {
   isAdmin: PropTypes.bool,
+  adminEmail: PropTypes.string,
   registerUrl: PropTypes.string.isRequired,
   loginUrl: PropTypes.string.isRequired,
 };
@@ -57,6 +59,7 @@ Home.propTypes = {
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx, false);
   const isAdmin = Boolean(account.isAdmin);
+  const adminEmail = isAdmin ? account.adminEmail : "";
 
   if (account && !isAdmin) {
     ctx.res.writeHead(302, {
@@ -69,6 +72,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       isAdmin: isAdmin,
+      adminEmail: adminEmail,
       registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
       loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
     },

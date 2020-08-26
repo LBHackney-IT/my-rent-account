@@ -8,7 +8,13 @@ import isPostcodeValid from "uk-postcode-validator";
 import { Button, TextInput, Checkboxes } from "components/Form";
 import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
-const AccountLogin = ({ isAdmin, onSubmit, onAsyncSubmit, submitText }) => {
+const AccountLogin = ({
+  isAdmin,
+  adminEmail,
+  onSubmit,
+  onAsyncSubmit,
+  submitText,
+}) => {
   const [submitting, setSubmitting] = useState();
   const { register, errors, handleSubmit } = useForm();
   const [error, setError] = useState();
@@ -17,7 +23,19 @@ const AccountLogin = ({ isAdmin, onSubmit, onAsyncSubmit, submitText }) => {
       setSubmitting(true);
       setError();
       const account = await axios.get("/api/accounts", { params });
-      await axios.post("/api/audit", { ...params, ...account });
+
+      if (isAdmin) {
+        const extraAdminAuditParams = {
+          user: adminEmail,
+        };
+        await axios.post("/api/adminaudit", {
+          ...params,
+          ...extraAdminAuditParams,
+        });
+      } else {
+        await axios.post("/api/audit", { ...params, ...account });
+      }
+
       onSubmit && onSubmit(params);
       onAsyncSubmit && (await onAsyncSubmit(params));
       Router.push("/account");
@@ -76,7 +94,7 @@ const AccountLogin = ({ isAdmin, onSubmit, onAsyncSubmit, submitText }) => {
         <Checkboxes
           options={[
             {
-              value: "csso",
+              value: "yes",
               label: "Simulate CSSO",
             },
           ]}
@@ -92,6 +110,7 @@ const AccountLogin = ({ isAdmin, onSubmit, onAsyncSubmit, submitText }) => {
 
 AccountLogin.propTypes = {
   isAdmin: PropTypes.bool,
+  adminEmail: PropTypes.string,
   onSubmit: PropTypes.func,
   onAsyncSubmit: PropTypes.func,
   submitText: PropTypes.string.isRequired,
