@@ -19,7 +19,7 @@ const OPTIONS = Array.apply(null, { length: 12 }).map((x, i) => {
 
 const today = new Date();
 
-const TransactionHistoryPage = ({ isAdmin, transactions }) => {
+const TransactionHistoryPage = ({ adminDetails, transactions }) => {
   const [filter, setFilter] = useState(1);
   const filterDate = sub(today, {
     months: filter,
@@ -29,7 +29,9 @@ const TransactionHistoryPage = ({ isAdmin, transactions }) => {
   );
   return (
     <div>
-      {isAdmin && <AdminNavBar />}
+      {adminDetails.isAdmin && (
+        <AdminNavBar adminName={adminDetails.adminName} />
+      )}
       <h1>Transaction history</h1>
       <p className="govuk-body">
         Due to end of week processing, your current and running balances may not
@@ -49,7 +51,7 @@ const TransactionHistoryPage = ({ isAdmin, transactions }) => {
 };
 
 TransactionHistoryPage.propTypes = {
-  isAdmin: PropTypes.bool,
+  adminDetails: PropTypes.object,
   ...TransactionsTable.propTypes,
 };
 
@@ -57,11 +59,11 @@ export default TransactionHistoryPage;
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx);
-  const isAdmin = Boolean(account.isAdmin);
+  const adminDetails = account.adminDetails || {};
   const transactions = await getTransactions(account);
   return {
     props: {
-      isAdmin: isAdmin,
+      adminDetails: adminDetails,
       transactions,
     },
   };

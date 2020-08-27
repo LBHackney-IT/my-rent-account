@@ -13,8 +13,6 @@ export default async (req, res) => {
           auditAction: body.auditAction || "VIEW",
         };
 
-        console.log(adminAuditParams);
-
         await postAdminAudit(adminAuditParams);
         res.status(204).end();
       } catch (error) {

@@ -9,8 +9,7 @@ import { Button, TextInput, Checkboxes } from "components/Form";
 import ErrorMessage from "components/ErrorMessage/ErrorMessage";
 
 const AccountLogin = ({
-  isAdmin,
-  adminEmail,
+  adminDetails,
   onSubmit,
   onAsyncSubmit,
   submitText,
@@ -24,9 +23,9 @@ const AccountLogin = ({
       setError();
       const account = await axios.get("/api/accounts", { params });
 
-      if (isAdmin) {
+      if (adminDetails.isAdmin) {
         const extraAdminAuditParams = {
-          user: adminEmail,
+          user: adminDetails.adminEmail,
         };
         await axios.post("/api/adminaudit", {
           ...params,
@@ -90,7 +89,7 @@ const AccountLogin = ({
             isPostcodeValid(value) || "You need a valid post code",
         })}
       />
-      {isAdmin && (
+      {adminDetails.isAdmin && (
         <Checkboxes
           options={[
             {
@@ -109,8 +108,7 @@ const AccountLogin = ({
 };
 
 AccountLogin.propTypes = {
-  isAdmin: PropTypes.bool,
-  adminEmail: PropTypes.string,
+  adminDetails: PropTypes.object,
   onSubmit: PropTypes.func,
   onAsyncSubmit: PropTypes.func,
   submitText: PropTypes.string.isRequired,
