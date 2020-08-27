@@ -1,37 +1,32 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./AdminNavBar.module.scss";
 
-export default function AdminNavBar() {
+const AdminNavBar = ({ adminName }) => {
   return (
-    <div>
-      <ul className={styles.AdminNavBar}>
-        <li>
-          <a href="/admin" className="govuk-link">
+    <div className={styles.AdminNavBar}>
+      <p className="govuk-body">
+        <span className="govuk-!-font-weight-bold">Logged in as:</span>{" "}
+        {adminName}
+      </p>
+      <ul className={styles.navList}>
+        <li className={styles.navListItem}>
+          <a href="/" className="govuk-link">
             Home
           </a>
         </li>
-        <li>
-          <a href="/admin" className="govuk-link">
-            Manage Users
-          </a>
-        </li>
-        <li>
-          <a href="/admin" className="govuk-link">
-            My Account
-          </a>
-        </li>
-        <li>
-          <a href="/admin/logout" className="govuk-link">
+        <li className={styles.navListItem}>
+          <a href="/logout" className="govuk-link">
             Logout
           </a>
         </li>
       </ul>
     </div>
   );
-}
-
-export const getServerSideProps = async () => {
-  return {
-    props: {},
-  };
 };
+
+AdminNavBar.propTypes = {
+  adminName: PropTypes.string,
+};
+
+export default AdminNavBar;
