@@ -33,7 +33,7 @@ export const getServerSideProps = async (ctx) => {
 
   const account = checkAdminGSSO(ctx);
 
-  if (account && account.isAdmin) {
+  if (account && account.adminDetails && account.adminDetails.isAdmin) {
     redirectToHome(ctx);
   }
 

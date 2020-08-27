@@ -7,24 +7,19 @@ import AccountLogin from "components/AccountLogin/AccountLogin";
 
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
-export default function Home({
-  isAdmin,
-  adminName,
-  adminEmail,
-  loginUrl,
-  registerUrl,
-}) {
+export default function Home({ adminDetails, loginUrl, registerUrl }) {
   return (
     <div>
-      {isAdmin && <AdminNavBar adminName={adminName} />}
+      {adminDetails.isAdmin && (
+        <AdminNavBar adminName={adminDetails.adminName} />
+      )}
       <h1>My rent account</h1>
       <p className="govuk-body">
         To view your rent account balance and make a payment, please enter your
         rent account number and post code in the boxes below.
       </p>
       <AccountLogin
-        isAdmin={isAdmin}
-        adminEmail={adminEmail}
+        adminDetails={adminDetails}
         onSubmit={updateSession}
         submitText="View account"
       />
@@ -58,18 +53,15 @@ export default function Home({
 }
 
 Home.propTypes = {
-  isAdmin: PropTypes.bool,
-  adminName: PropTypes.string,
-  adminEmail: PropTypes.string,
+  adminDetails: PropTypes.object,
   registerUrl: PropTypes.string.isRequired,
   loginUrl: PropTypes.string.isRequired,
 };
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx, false);
-  const isAdmin = Boolean(account.isAdmin);
-  const adminName = isAdmin ? account.adminName : "";
-  const adminEmail = isAdmin ? account.adminEmail : "";
+  const adminDetails = account.adminDetails || {};
+  const isAdmin = Boolean(adminDetails && adminDetails.isAdmin);
 
   if (account && !isAdmin) {
     ctx.res.writeHead(302, {
@@ -80,9 +72,7 @@ export const getServerSideProps = async (ctx) => {
   const queryString = `?grant_type=authorization_code&client_id=${CSSO_ID}&client_secret=${CSSO_SECRET}&scope=openid%20email&response_type=code&redirect_uri=https://${URL_PREFIX}/auth`;
   return {
     props: {
-      isAdmin: isAdmin,
-      adminName: adminName,
-      adminEmail: adminEmail,
+      adminDetails: adminDetails,
       registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
       loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
     },

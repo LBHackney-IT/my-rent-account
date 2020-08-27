@@ -19,8 +19,7 @@ import { getSession, setSession, deleteSession } from "lib/session";
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
 const Account = ({
-  isAdmin,
-  adminName,
+  adminDetails,
   name,
   currentBalance,
   accountNumber,
@@ -37,7 +36,9 @@ const Account = ({
 }) => {
   return (
     <div>
-      {isAdmin && <AdminNavBar adminName={adminName} />}
+      {adminDetails.isAdmin && (
+        <AdminNavBar adminName={adminDetails.adminName} />
+      )}
       <h1>My rent account</h1>
       <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
       <h2>Account details</h2>
@@ -50,16 +51,17 @@ const Account = ({
           {
             title: "Rent account:",
             value: accountNumber,
-            cta: !isWithPrivacy && {
-              onClick: async () => {
-                await axios.delete(
-                  `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
-                );
-                setSession({ cssoId });
-                Router.push("/link-account?unlinkSuccess=true");
+            cta: !isWithPrivacy &&
+              !adminDetails.isAdmin && {
+                onClick: async () => {
+                  await axios.delete(
+                    `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
+                  );
+                  setSession({ cssoId });
+                  Router.push("/link-account?unlinkSuccess=true");
+                },
+                text: "unlink account",
               },
-              text: "unlink account",
-            },
           },
         ]}
       />
@@ -149,8 +151,7 @@ const Account = ({
 };
 
 Account.propTypes = {
-  isAdmin: PropTypes.bool,
-  adminName: PropTypes.string,
+  adminDetails: PropTypes.object,
   name: PropTypes.string.isRequired,
   currentBalance: PropTypes.string.isRequired,
   accountNumber: PropTypes.string.isRequired,
@@ -171,10 +172,10 @@ export default Account;
 export const getServerSideProps = async (ctx) => {
   try {
     const account = getSession(ctx);
-    const isAdmin = Boolean(account.isAdmin);
-    const adminName = isAdmin ? account.adminName : "";
+    const adminDetails = account.adminDetails || {};
+    const isAdmin = Boolean(adminDetails && adminDetails.isAdmin);
     const isWithPrivacy = Boolean(
-      !(account && isAdmin && account.simulateCSSO) || !account.cssoId
+      !(account && isAdmin && account.simulateCSSO) && !account.cssoId
     );
     const accountDetails = await getAccountDetails(account, isWithPrivacy);
     const transactions = await getTransactions({
@@ -184,8 +185,7 @@ export const getServerSideProps = async (ctx) => {
     const queryString = `?grant_type=authorization_code&client_id=${CSSO_ID}&client_secret=${CSSO_SECRET}&scope=openid%20email&response_type=code&redirect_uri=https://${URL_PREFIX}/auth`;
     return {
       props: {
-        isAdmin: isAdmin,
-        adminName: adminName,
+        adminDetails: adminDetails,
         ...accountDetails,
         ...account,
         transactions: transactions.slice(0, 3),
