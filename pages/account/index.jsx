@@ -51,16 +51,17 @@ const Account = ({
           {
             title: "Rent account:",
             value: accountNumber,
-            cta: (!isWithPrivacy && !adminDetails.isAdmin) && {
-              onClick: async () => {
-                await axios.delete(
-                  `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
-                );
-                setSession({ cssoId });
-                Router.push("/link-account?unlinkSuccess=true");
+            cta: !isWithPrivacy &&
+              !adminDetails.isAdmin && {
+                onClick: async () => {
+                  await axios.delete(
+                    `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
+                  );
+                  setSession({ cssoId });
+                  Router.push("/link-account?unlinkSuccess=true");
+                },
+                text: "unlink account",
               },
-              text: "unlink account",
-            },
           },
         ]}
       />
