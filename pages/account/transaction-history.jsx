@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import sub from "date-fns/sub";
 import isBefore from "date-fns/isBefore";
 
 import { getSession } from "lib/session";
 import { getTransactions } from "lib/api/transactions";
+import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 import TransactionsTable from "components/TransactionsTable/TransactionsTable";
 import { Select } from "components/Form";
 
@@ -17,7 +19,7 @@ const OPTIONS = Array.apply(null, { length: 12 }).map((x, i) => {
 
 const today = new Date();
 
-const TransactionHistoryPage = ({ transactions }) => {
+const TransactionHistoryPage = ({ isAdmin, transactions }) => {
   const [filter, setFilter] = useState(1);
   const filterDate = sub(today, {
     months: filter,
@@ -27,6 +29,7 @@ const TransactionHistoryPage = ({ transactions }) => {
   );
   return (
     <div>
+      {isAdmin && <AdminNavBar />}
       <h1>Transaction history</h1>
       <p className="govuk-body">
         Due to end of week processing, your current and running balances may not
@@ -46,6 +49,7 @@ const TransactionHistoryPage = ({ transactions }) => {
 };
 
 TransactionHistoryPage.propTypes = {
+  isAdmin: PropTypes.bool,
   ...TransactionsTable.propTypes,
 };
 
@@ -53,9 +57,11 @@ export default TransactionHistoryPage;
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx);
+  const isAdmin = Boolean(account.isAdmin);
   const transactions = await getTransactions(account);
   return {
     props: {
+      isAdmin: isAdmin,
       transactions,
     },
   };

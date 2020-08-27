@@ -5,14 +5,16 @@ import axios from "axios";
 import { getSession, deleteSession } from "lib/session";
 import { getLinkedAccount } from "lib/api/accounts";
 import { Button } from "components/Form";
+import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 
-const UnlinkAccount = ({ accounts }) => {
+const UnlinkAccount = ({ isAdmin, accounts }) => {
   const unlink = async (id) => {
     await axios.delete(`/api/link-account?linkId=${id}`);
     deleteSession();
   };
   return (
     <div className="govuk-body">
+      {isAdmin && <AdminNavBar />}
       <h1>Linked accounts</h1>
       {accounts.length === 0 && "No accounts linked"}
       {accounts.map(
@@ -32,14 +34,19 @@ const UnlinkAccount = ({ accounts }) => {
 };
 
 UnlinkAccount.propTypes = {
+  isAdmin: PropTypes.bool,
   accounts: PropTypes.array.isRequired,
 };
 
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx);
+  const isAdmin = Boolean(account.isAdmin);
   const accounts = await getLinkedAccount(account);
   return {
-    props: { accounts },
+    props: {
+      isAdmin: isAdmin,
+      accounts,
+    },
   };
 };
 
