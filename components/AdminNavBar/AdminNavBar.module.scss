@@ -1,7 +1,17 @@
 
 .AdminNavBar {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-between;
     margin-top: 30px;
+    text-align: right;
+
+
+    .navList {
+        list-style-type: none;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .navListItem {
+        margin-left: 20px
+
+    }
 }

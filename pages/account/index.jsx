@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { getAccountDetails } from "lib/api/accounts";
 import { getTransactions } from "lib/api/transactions";
+import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 import TransactionsTable from "components/TransactionsTable/TransactionsTable";
 import SummaryList from "components/SummaryList/SummaryList";
 import ErrorSummary from "components/ErrorSummary/ErrorSummary";
@@ -18,6 +19,8 @@ import { getSession, setSession, deleteSession } from "lib/session";
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
 const Account = ({
+  isAdmin,
+  adminName,
   name,
   currentBalance,
   accountNumber,
@@ -34,6 +37,7 @@ const Account = ({
 }) => {
   return (
     <div>
+      {isAdmin && <AdminNavBar adminName={adminName} />}
       <h1>My rent account</h1>
       <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
       <h2>Account details</h2>
@@ -145,6 +149,8 @@ const Account = ({
 };
 
 Account.propTypes = {
+  isAdmin: PropTypes.bool,
+  adminName: PropTypes.string,
   name: PropTypes.string.isRequired,
   currentBalance: PropTypes.string.isRequired,
   accountNumber: PropTypes.string.isRequired,
@@ -165,8 +171,10 @@ export default Account;
 export const getServerSideProps = async (ctx) => {
   try {
     const account = getSession(ctx);
+    const isAdmin = Boolean(account.isAdmin);
+    const adminName = isAdmin ? account.adminName : "";
     const isWithPrivacy = Boolean(
-      !(account && account.isAdmin && account.simulateCSSO) || !account.cssoId
+      !(account && isAdmin && account.simulateCSSO) || !account.cssoId
     );
     const accountDetails = await getAccountDetails(account, isWithPrivacy);
     const transactions = await getTransactions({
@@ -176,6 +184,8 @@ export const getServerSideProps = async (ctx) => {
     const queryString = `?grant_type=authorization_code&client_id=${CSSO_ID}&client_secret=${CSSO_SECRET}&scope=openid%20email&response_type=code&redirect_uri=https://${URL_PREFIX}/auth`;
     return {
       props: {
+        isAdmin: isAdmin,
+        adminName: adminName,
         ...accountDetails,
         ...account,
         transactions: transactions.slice(0, 3),

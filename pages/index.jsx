@@ -2,13 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import { getSession, updateSession } from "lib/session";
 
+import AdminNavBar from "components/AdminNavBar/AdminNavBar";
 import AccountLogin from "components/AccountLogin/AccountLogin";
 
 const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 
-export default function Home({ isAdmin, adminEmail, loginUrl, registerUrl }) {
+export default function Home({
+  isAdmin,
+  adminName,
+  adminEmail,
+  loginUrl,
+  registerUrl,
+}) {
   return (
     <div>
+      {isAdmin && <AdminNavBar adminName={adminName} />}
       <h1>My rent account</h1>
       <p className="govuk-body">
         To view your rent account balance and make a payment, please enter your
@@ -51,6 +59,7 @@ export default function Home({ isAdmin, adminEmail, loginUrl, registerUrl }) {
 
 Home.propTypes = {
   isAdmin: PropTypes.bool,
+  adminName: PropTypes.string,
   adminEmail: PropTypes.string,
   registerUrl: PropTypes.string.isRequired,
   loginUrl: PropTypes.string.isRequired,
@@ -59,12 +68,12 @@ Home.propTypes = {
 export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx, false);
   const isAdmin = Boolean(account.isAdmin);
+  const adminName = isAdmin ? account.adminName : "";
   const adminEmail = isAdmin ? account.adminEmail : "";
 
   if (account && !isAdmin) {
     ctx.res.writeHead(302, {
-      Location:
-        account.accountNumber || account.isAdmin ? "/account" : "/link-account",
+      Location: account.accountNumber || isAdmin ? "/account" : "/link-account",
     });
     ctx.res.end();
   }
@@ -72,6 +81,7 @@ export const getServerSideProps = async (ctx) => {
   return {
     props: {
       isAdmin: isAdmin,
+      adminName: adminName,
       adminEmail: adminEmail,
       registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
       loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
