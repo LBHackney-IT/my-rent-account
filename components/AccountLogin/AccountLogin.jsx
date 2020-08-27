@@ -23,7 +23,7 @@ const AccountLogin = ({
       setError();
       const account = await axios.get("/api/accounts", { params });
 
-      if (adminDetails.isAdmin) {
+      if (adminDetails && adminDetails.isAdmin) {
         const extraAdminAuditParams = {
           user: adminDetails.adminEmail,
         };
@@ -89,7 +89,7 @@ const AccountLogin = ({
             isPostcodeValid(value) || "You need a valid post code",
         })}
       />
-      {adminDetails.isAdmin && (
+      {adminDetails && adminDetails.isAdmin && (
         <Checkboxes
           options={[
             {
