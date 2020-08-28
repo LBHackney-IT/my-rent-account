@@ -16,6 +16,11 @@ const AdminNavBar = ({ adminName }) => {
           </a>
         </li>
         <li className={styles.navListItem}>
+          <a href="/admin/myaccount" className="govuk-link">
+            My Account
+          </a>
+        </li>
+        <li className={styles.navListItem}>
           <a href="/logout" className="govuk-link">
             Logout
           </a>
