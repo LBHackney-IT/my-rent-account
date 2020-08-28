@@ -55,7 +55,7 @@ exports[`TransactionsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            05/09/2016
+            9/5/2016
           </td>
           <td
             class="govuk-table__cell"
@@ -82,7 +82,7 @@ exports[`TransactionsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            10/04/2016
+            4/10/2016
           </td>
           <td
             class="govuk-table__cell"
