@@ -24,7 +24,7 @@ const TransactionHistoryPage = ({ adminDetails, transactions }) => {
   const filterDate = sub(today, {
     months: filter,
   });
-  const filteredTranactions = transactions.filter(
+  const filteredTransactions = transactions.filter(
     (transaction) => !isBefore(new Date(transaction.date), filterDate)
   );
   return (
@@ -45,7 +45,7 @@ const TransactionHistoryPage = ({ adminDetails, transactions }) => {
         name="filter"
         value={filter}
       />
-      <TransactionsTable transactions={filteredTranactions} />
+      <TransactionsTable transactions={filteredTransactions} />
     </div>
   );
 };
@@ -61,6 +61,7 @@ export const getServerSideProps = async (ctx) => {
   const account = getSession(ctx);
   const adminDetails = account.adminDetails || {};
   const transactions = await getTransactions(account);
+
   return {
     props: {
       adminDetails: adminDetails,
