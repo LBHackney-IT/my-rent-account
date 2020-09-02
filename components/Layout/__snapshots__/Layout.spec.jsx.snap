@@ -28,13 +28,12 @@ exports[`Layout component should render properly 1`] = `
         <span
           class="govuk-phase-banner__text"
         >
-          This is a new service – your 
+          This is a new service – If you have an account query or feedback, please email us at 
           <a
-            class="govuk-link"
+            href="mailto:housing.rents@hackney.gov.uk"
           >
-            feedback
+            housing.rents@hackney.gov.uk
           </a>
-           will help us to improve it.
         </span>
       </p>
     </div>
