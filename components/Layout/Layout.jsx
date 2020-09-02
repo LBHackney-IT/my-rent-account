@@ -11,7 +11,7 @@ const Layout = ({ children }) => (
     <SkipLink />
     <Header serviceName="My rent account" />
     <div className="govuk-width-container app-width-container">
-      <PhaseBanner phase="beta" />
+      <PhaseBanner phase="beta" contactEmail="housing.rents@hackney.gov.uk"/>
       <main
         className="govuk-main-wrapper app-main-class"
         id="content"
