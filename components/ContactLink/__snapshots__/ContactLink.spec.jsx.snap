@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContactLink component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <p
+      class="govuk-body"
+    >
+      If you have an account query, please email us at 
+      <a
+        href="housing.rents@hackney.gov.uk"
+      >
+        housing.rents@hackney.gov.uk
+      </a>
+      , or call us on 020 8356 3100 (Mon-Fri 9am - 5pm)
+    </p>
+  </div>
+</DocumentFragment>
+`;
