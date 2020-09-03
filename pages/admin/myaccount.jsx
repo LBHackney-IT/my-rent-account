@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import { redirectToHome, getSession } from "lib/session";
 
 import { getAdminAuditRecords } from "lib/api/adminAuditRecords";
@@ -9,6 +10,7 @@ import AdminAuditRecordsTable from "components/AdminAuditRecordsTable/AdminAudit
 export default function MyAccountPage({ adminDetails, adminAuditRecords }) {
   return (
     <div>
+      <NextSeo title="Admin My Acount" noindex={true} />
       <AdminNavBar adminName={adminDetails.adminName} />
       <h1>My Account</h1>
 

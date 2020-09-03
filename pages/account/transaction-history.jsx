@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import sub from "date-fns/sub";
 import isBefore from "date-fns/isBefore";
 
@@ -29,6 +30,7 @@ const TransactionHistoryPage = ({ adminDetails, transactions }) => {
   );
   return (
     <div>
+      <NextSeo title="Transaction History" noindex={true} />
       {adminDetails.isAdmin && (
         <AdminNavBar adminName={adminDetails.adminName} />
       )}

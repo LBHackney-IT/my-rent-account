@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 
 import { getAllRentBreakdowns } from "lib/api/tenancy";
 import SummaryList from "components/SummaryList/SummaryList";
@@ -10,6 +11,7 @@ import { getAccountDetails } from "lib/api/accounts";
 const Account = ({ items }) => {
   return (
     <div>
+      <NextSeo title="Rent Breakdown" noindex={true} />
       <h1>Rent breakdown</h1>
       <SummaryList
         list={items.map(({ description, value }) => ({

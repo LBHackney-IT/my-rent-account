@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import axios from "axios";
 
 import { getSession, deleteSession } from "lib/session";
@@ -14,6 +15,7 @@ const UnlinkAccount = ({ isAdmin, accounts }) => {
   };
   return (
     <div className="govuk-body">
+      <NextSeo title="Unlink Account" noindex={true} />
       {isAdmin && <AdminNavBar />}
       <h1>Linked accounts</h1>
       {accounts.length === 0 && "No accounts linked"}

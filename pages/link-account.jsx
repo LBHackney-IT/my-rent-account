@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import axios from "axios";
 import { useRouter } from "next/router";
 
@@ -12,6 +13,7 @@ const LinkAccount = ({ cssoId }) => {
   const { query } = useRouter();
   return (
     <div>
+      <NextSeo title="Link Account" noindex={true} />
       {query.unlinkSuccess && (
         <WarningText>
           Your old rent account has been unlinked successfully

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import cx from "classnames";
 import Router from "next/router";
 import axios from "axios";
@@ -36,6 +37,7 @@ const Account = ({
 }) => {
   return (
     <div>
+      <NextSeo title="Acount" noindex={true} />
       {adminDetails.isAdmin && (
         <AdminNavBar adminName={adminDetails.adminName} />
       )}
