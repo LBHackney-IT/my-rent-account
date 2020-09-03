@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import { redirectToHome, checkAdminGSSO } from "lib/session";
 import { getProtocol } from "lib/urls";
 import AdminLogin from "components/AdminLogin/AdminLogin";
@@ -7,6 +8,7 @@ import AdminLogin from "components/AdminLogin/AdminLogin";
 export default function AdminLoginPage({ gssoUrl, returnUrl }) {
   return (
     <div>
+      <NextSeo title="Admin Log In" noindex={true} />
       <h1>Login to My Rent Account</h1>
 
       <p className="govuk-body">

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { getSession } from "lib/session";
@@ -66,6 +67,7 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
   };
   return (
     <div>
+      <NextSeo title="Payment" noindex={true} />
       <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
       <h1>Make a payment</h1>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -1,6 +1,7 @@
 import React from "react";
 import cx from "classnames";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 
 import SummaryList from "components/SummaryList/SummaryList";
 import { getTransactionType } from "utils/payment";
@@ -18,6 +19,7 @@ const PaymentConfirmation = ({
   const isPaymentSuccessful = serviceprocessed === "true";
   return (
     <div>
+      <NextSeo title="Payment Confirmation" noindex={true} />
       <div
         className={cx(
           "govuk-panel",

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NextSeo } from "next-seo";
 import { getSession, updateSession } from "lib/session";
 
 import AdminNavBar from "components/AdminNavBar/AdminNavBar";
@@ -10,6 +11,7 @@ const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
 export default function Home({ adminDetails, loginUrl, registerUrl }) {
   return (
     <div>
+      <NextSeo title="Home" />
       {adminDetails.isAdmin && (
         <AdminNavBar adminName={adminDetails.adminName} />
       )}
