@@ -35,15 +35,12 @@ functions:
     environment:
       ENV: ${self:provider.stage}
       URL_PREFIX: ${self:custom.aliases.${self:provider.stage}}
-      AUTH_TOKEN: ${env:AUTH_TOKEN}
-      AUTH_URL: ${env:AUTH_URL}
-      API_URL: ${env:API_URL}
-      PAYMENT_URL: ${env:PAYMENT_URL}
-      AWS_ENDPOINT: ${env:AWS_ENDPOINT}
-      AWS_SECRET: ${env:AWS_SECRET}
-      SANDBOX_DOMAIN: ${env:SANDBOX_DOMAIN}
-      SANDBOX_LINK_ACCOUNT: ${env:SANDBOX_LINK_ACCOUNT}
-      SANDBOX_TENANCY_AGREEMENT: ${env:SANDBOX_TENANCY_AGREEMENT}
+      PAYMENT_URL: ${ssm:/my-rent-account/${self:provider.stage}/payment-url}
+      AWS_ENDPOINT: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-url}
+      AWS_SECRET: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-key}
+      SANDBOX_DOMAIN: ${ssm:/my-rent-account/${self:provider.stage}/sanbox-host}
+      SANDBOX_LINK_ACCOUNT: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-linked-account-path}
+      SANDBOX_TENANCY_AGREEMENT: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-ncc-path}
       CSSO_ID: ${env:CSSO_ID}
       CSSO_SECRET: ${env:CSSO_SECRET}
       CSSO_DOMAIN: ${env:CSSO_DOMAIN}
@@ -51,9 +48,9 @@ functions:
       GSSO_URL: ${env:GSSO_URL}
       GSSO_TOKEN_NAME: ${env:GSSO_TOKEN_NAME}
       HACKNEY_JWT_SECRET: ${env:HACKNEY_JWT_SECRET}
-      ADMIN_USER_GROUP: ${env:ADMIN_USER_GROUP}
-      ADMIN_AUDIT_API_URL: ${env:ADMIN_AUDIT_API_URL}
-      ADMIN_AUDIT_API_KEY: ${env:ADMIN_AUDIT_API_KEY}
+      ADMIN_USER_GROUP: ${ssm:/my-rent-account/${self:provider.stage}/admin-group}
+      ADMIN_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}
+      ADMIN_AUDIT_API_KEY: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-key}
 
 resources:
   Resources:
