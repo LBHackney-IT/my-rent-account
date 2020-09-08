@@ -33,24 +33,27 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
-      ENV: ${self:provider.stage}
-      URL_PREFIX: ${self:custom.aliases.${self:provider.stage}}
-      PAYMENT_URL: ${ssm:/my-rent-account/${self:provider.stage}/payment-url}
+      ADMIN_AUDIT_API_KEY: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-key}
+      ADMIN_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}
+      ADMIN_USER_GROUP: ${ssm:/my-rent-account/${self:provider.stage}/admin-group}
+      API_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-api-url}
+      AUTH_TOKEN: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-token}
+      AUTH_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-url}
       AWS_ENDPOINT: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-url}
       AWS_SECRET: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-key}
+      CSSO_DOMAIN: ${env:CSSO_DOMAIN}
+      CSSO_ID: ${env:CSSO_ID}
+      CSSO_SECRET: ${env:CSSO_SECRET}
+      ENV: ${self:provider.stage}
+      GA_TAG: ${env:GA_TAG}
+      GSSO_TOKEN_NAME: ${env:GSSO_TOKEN_NAME}
+      GSSO_URL: ${env:GSSO_URL}
+      HACKNEY_JWT_SECRET: ${env:HACKNEY_JWT_SECRET}
+      PAYMENT_URL: ${ssm:/my-rent-account/${self:provider.stage}/payment-url}
       SANDBOX_DOMAIN: ${ssm:/my-rent-account/${self:provider.stage}/sanbox-host}
       SANDBOX_LINK_ACCOUNT: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-linked-account-path}
       SANDBOX_TENANCY_AGREEMENT: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-ncc-path}
-      CSSO_ID: ${env:CSSO_ID}
-      CSSO_SECRET: ${env:CSSO_SECRET}
-      CSSO_DOMAIN: ${env:CSSO_DOMAIN}
-      GA_TAG: ${env:GA_TAG}
-      GSSO_URL: ${env:GSSO_URL}
-      GSSO_TOKEN_NAME: ${env:GSSO_TOKEN_NAME}
-      HACKNEY_JWT_SECRET: ${env:HACKNEY_JWT_SECRET}
-      ADMIN_USER_GROUP: ${ssm:/my-rent-account/${self:provider.stage}/admin-group}
-      ADMIN_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}
-      ADMIN_AUDIT_API_KEY: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-key}
+      URL_PREFIX: ${self:custom.aliases.${self:provider.stage}}
 
 resources:
   Resources:
