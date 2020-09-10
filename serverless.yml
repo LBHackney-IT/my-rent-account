@@ -36,11 +36,11 @@ functions:
       ADMIN_AUDIT_API_KEY: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-key}
       ADMIN_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}/rentaccountaudit
       ADMIN_USER_GROUP: ${ssm:/my-rent-account/${self:provider.stage}/admin-group}
-      API_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-api-url}
-      AUTH_TOKEN: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-token}
-      AUTH_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-url}
-      AWS_ENDPOINT: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-url}
-      AWS_SECRET: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-key}
+      CRM_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-api-url}
+      CRM_AUTH_TOKEN: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-token}
+      CRM_AUTH_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-url}
+      TRANSACTIONS_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-url}
+      TRANSACTIONS_API_KEY: ${ssm:/my-rent-account/${self:provider.stage}/transactions-api-key}
       CSSO_DOMAIN: ${env:CSSO_DOMAIN}
       CSSO_ID: ${env:CSSO_ID}
       CSSO_SECRET: ${env:CSSO_SECRET}
