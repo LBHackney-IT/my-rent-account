@@ -34,7 +34,7 @@ functions:
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
       ADMIN_AUDIT_API_KEY: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-key}
-      ADMIN_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}/rentaccountaudit
+      ADMIN_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}/rentaccountaudit/admin
       ADMIN_USER_GROUP: ${ssm:/my-rent-account/${self:provider.stage}/admin-group}
       CRM_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/crm-api-url}
       CRM_AUTH_TOKEN: ${ssm:/my-rent-account/${self:provider.stage}/crm-auth-api-token}
@@ -52,6 +52,7 @@ functions:
       PAYMENT_URL: ${ssm:/my-rent-account/${self:provider.stage}/payment-url}
       RENT_ACCOUNT_API_BASE_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}
       RENT_ACCOUNT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}/rentaccounts
+      RESIDENT_AUDIT_API_URL: ${ssm:/my-rent-account/${self:provider.stage}/rent-account-api-url}/rentaccountaudit/resident
       SANDBOX_DOMAIN: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-host}
       SANDBOX_LINK_ACCOUNT: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-linked-account-path}
       SANDBOX_TENANCY_AGREEMENT: ${ssm:/my-rent-account/${self:provider.stage}/sandbox-ncc-path}
