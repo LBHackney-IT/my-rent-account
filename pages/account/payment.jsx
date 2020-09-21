@@ -100,7 +100,7 @@ const Account = ({ currentBalance, hasArrears, accountNumber }) => {
 
 Account.propTypes = {
   name: PropTypes.string.isRequired,
-  currentBalance: PropTypes.string.isRequired,
+  currentBalance: PropTypes.number.isRequired,
   hasArrears: PropTypes.bool.isRequired,
   accountNumber: PropTypes.string.isRequired,
 };
