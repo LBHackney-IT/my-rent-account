@@ -41,8 +41,8 @@ const RentBreakdown = ({ rent, benefits, toPay }) => {
 
 RentBreakdown.propTypes = {
   rent: PropTypes.number.isRequired,
-  benefits: PropTypes.string.isRequired,
-  toPay: PropTypes.string.isRequired,
+  benefits: PropTypes.number.isRequired,
+  toPay: PropTypes.number.isRequired,
 };
 
 export default RentBreakdown;

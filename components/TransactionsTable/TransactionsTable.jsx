@@ -42,10 +42,10 @@ const transactionsTable = ({ transactions }) => (
             </td>
             <td className="govuk-table__cell">{transaction.description}</td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
-              {getProperValue(getProperCurrency(transaction.out))}
+              {getProperValue(getProperCurrency(transaction.valueOut))}
             </td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
-              {getProperCurrency(transaction.in)}
+              {getProperCurrency(transaction.valueIn)}
             </td>
             <td className="govuk-table__cell govuk-table__cell--numeric">
               {getProperValue(getProperCurrency(transaction.balance))}
