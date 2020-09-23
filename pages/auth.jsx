@@ -32,8 +32,9 @@ export const getServerSideProps = async (ctx) => {
         const accountDetails = await getAccountDetails({
           accountNumber: account.accountNumber,
         });
+        const { postcode, accountNumber } = accountDetails;
         await linkAccount(account);
-        await postAuditLogin(accountDetails);
+        await postAuditLogin({ postcode, accountNumber, cssoId });
         ctx.res.writeHead(302, {
           Location: `/account`,
         });
@@ -44,7 +45,7 @@ export const getServerSideProps = async (ctx) => {
         accountNumber: accounts[0].rent_account_number,
       });
       const { postcode, accountNumber } = accountDetails;
-      await postAuditLogin(accountDetails);
+      await postAuditLogin({ postcode, accountNumber, cssoId });
       updateSession({ cssoId, accountNumber, postcode }, ctx);
       ctx.res.writeHead(302, {
         Location: `/account`,
