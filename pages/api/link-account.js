@@ -39,7 +39,7 @@ export default async (req, res) => {
           res.status(404).end();
         } else {
           await unlinkAccount({
-            linkId: linkedAccount.hackney_csso_linked_rent_accountid,
+            cssoId: linkedAccount.csso_id,
           });
           res.status(204).end();
         }
