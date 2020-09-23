@@ -17,16 +17,6 @@ import { Button } from "components/Form";
 import NotLoggedBox from "components/NotLoggedBox/NotLoggedBox";
 import { getSession, setSession, deleteSession } from "lib/session";
 
-const { RENT_ACCOUNT_API_KEY } = process.env;
-
-const {
-  CSSO_DOMAIN,
-  CSSO_ID,
-  CSSO_SECRET,
-  URL_PREFIX,
-  RENT_ACCOUNT_API_URL,
-} = process.env;
-
 const Account = ({
   adminDetails,
   name,
@@ -42,6 +32,8 @@ const Account = ({
   isWithPrivacy,
   loginUrl,
   registerUrl,
+  rentAccountAPIKey,
+  rentAccountAPIURL,
 }) => {
   return (
     <div>
@@ -65,17 +57,17 @@ const Account = ({
               !adminDetails.isAdmin && {
                 onClick: async () => {
                   await axios.delete(
-                    `${RENT_ACCOUNT_API_URL}/linkedaccount/${cssoId}`,
+                    `${rentAccountAPIURL}/linkedaccount/${cssoId}`,
                     {
                       headers: {
-                        "x-api-key": RENT_ACCOUNT_API_KEY,
+                        "x-api-key": rentAccountAPIKey,
                       },
                     }
                   );
                   setSession({ cssoId });
                   Router.push("/link-account?unlinkSuccess=true");
                 },
-                text: "unlink account",
+                text: `unlink account`,
               },
           },
         ]}
@@ -180,11 +172,22 @@ Account.propTypes = {
   isWithPrivacy: PropTypes.bool,
   loginUrl: PropTypes.string.isRequired,
   registerUrl: PropTypes.string.isRequired,
+  rentAccountAPIKey: PropTypes.string.isRequired,
+  rentAccountAPIURL: PropTypes.string.isRequired,
 };
 
 export default Account;
 
 export const getServerSideProps = async (ctx) => {
+  const {
+    CSSO_DOMAIN,
+    CSSO_ID,
+    CSSO_SECRET,
+    URL_PREFIX,
+    RENT_ACCOUNT_API_KEY,
+    RENT_ACCOUNT_API_URL,
+  } = process.env;
+
   try {
     const account = getSession(ctx);
     const adminDetails = account.adminDetails || {};
@@ -207,6 +210,8 @@ export const getServerSideProps = async (ctx) => {
         isWithPrivacy,
         registerUrl: `${CSSO_DOMAIN}/users/sign_up${queryString}`,
         loginUrl: `${CSSO_DOMAIN}/oauth/authorize${queryString}`,
+        rentAccountAPIKey: `${RENT_ACCOUNT_API_KEY}`,
+        rentAccountAPIURL: `${RENT_ACCOUNT_API_URL}`,
       },
     };
   } catch (e) {
