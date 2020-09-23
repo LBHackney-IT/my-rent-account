@@ -17,7 +17,15 @@ import { Button } from "components/Form";
 import NotLoggedBox from "components/NotLoggedBox/NotLoggedBox";
 import { getSession, setSession, deleteSession } from "lib/session";
 
-const { CSSO_DOMAIN, CSSO_ID, CSSO_SECRET, URL_PREFIX } = process.env;
+const { RENT_ACCOUNT_API_KEY } = process.env;
+
+const {
+  CSSO_DOMAIN,
+  CSSO_ID,
+  CSSO_SECRET,
+  URL_PREFIX,
+  RENT_ACCOUNT_API_URL,
+} = process.env;
 
 const Account = ({
   adminDetails,
@@ -57,7 +65,12 @@ const Account = ({
               !adminDetails.isAdmin && {
                 onClick: async () => {
                   await axios.delete(
-                    `/api/link-account?cssoId=${cssoId}&accountNumber=${accountNumber}`
+                    `${RENT_ACCOUNT_API_URL}/linkedaccount/${cssoId}`,
+                    {
+                      headers: {
+                        "x-api-key": RENT_ACCOUNT_API_KEY,
+                      },
+                    }
                   );
                   setSession({ cssoId });
                   Router.push("/link-account?unlinkSuccess=true");
