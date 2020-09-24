@@ -10,7 +10,7 @@ const SummaryList = ({ list }) => (
           <dd className="govuk-summary-list__value">{value}</dd>
           <dd className="govuk-summary-list__actions">
             {cta && (
-              <a className="govuk-link" onClick={cta.onClick}>
+              <a href="#" className="govuk-link" onClick={cta.onClick}>
                 {cta.text}
               </a>
             )}

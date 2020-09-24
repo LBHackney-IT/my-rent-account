@@ -14,7 +14,9 @@ export default async (req, res) => {
         res.status(200).json(data);
       } catch (error) {
         console.log("Get Link Account error:", error);
-        res.status(500).json(error);
+        res.writeHead(500, {
+          Location: `/error`,
+        });
       }
       break;
     case "POST":
@@ -24,7 +26,9 @@ export default async (req, res) => {
         res.status(200).json(data);
       } catch (error) {
         console.log("Link Account error:", error);
-        res.status(500).json(error);
+        res.writeHead(500, {
+          Location: `/error`,
+        });
       }
       break;
     case "DELETE":
@@ -45,7 +49,9 @@ export default async (req, res) => {
         }
       } catch (error) {
         console.log("Unlink Account error:", error);
-        res.status(500).json(error);
+        res.writeHead(500, {
+          Location: `/error`,
+        });
       }
       break;
     default:
