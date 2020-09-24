@@ -1,3 +1,3 @@
 export default {
-  titleTemplate: "My Rent Account - %s | Hackney Council",
+  titleTemplate: "%s - My Rent Account - Hackney Council",
 };
