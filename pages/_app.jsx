@@ -14,7 +14,8 @@ export default class MyApp extends App {
     const handleRouteChange = (url) => {
       gtag.pageview(url);
     };
-    Router.events.on("routeChangeComplete", handleRouteChange, () => {
+    Router.events.on("routeChangeComplete", () => {
+      handleRouteChange;
       window.scrollTo(0, 0);
     });
   }
